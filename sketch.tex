@@ -1,0 +1,1034 @@
+% Created 2025-05-15 Thu 12:29
+% Intended LaTeX compiler: pdflatex
+\documentclass[11pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{graphicx}
+\usepackage{longtable}
+\usepackage{wrapfig}
+\usepackage{rotating}
+\usepackage[normalem]{ulem}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{capt-of}
+\usepackage{hyperref}
+\author{fcalado}
+\date{\today}
+\title{}
+\hypersetup{
+ pdfauthor={fcalado},
+ pdftitle={},
+ pdfkeywords={},
+ pdfsubject={},
+ pdfcreator={Emacs 29.3 (Org mode 9.6.15)}, 
+ pdflang={English}}
+\begin{document}
+
+\tableofcontents
+
+\section{sketch}
+\label{sec:orge9b8d62}
+
+
+\subsection{course overview}
+\label{sec:org16c67c1}
+\begin{itemize}
+\item May 27 - July 7:
+\item 10a - 1:50p (3:50/day, 7 hrs/week, 6 weeks)
+\item each session into blocks of: 1:50, 30 min break, 1:30 hours
+\end{itemize}
+
+\subsubsection{Unit 1 (2 weeks): web crawling bots}
+\label{sec:org377f27b}
+\subsubsection{Unit 2: (1 week): chat bots}
+\label{sec:orgbe93eba}
+\subsubsection{Unit 3 (2 weeks): social media bots}
+\label{sec:orga2e8e0e}
+\subsubsection{Unit 4 (1.5 weeks): project workshops \& presentations}
+\label{sec:org65179bc}
+
+\subsection{course schedule}
+\label{sec:orgf9cb288}
+\subsubsection{unit 1 web crawling (surveillance) - 2 weeks}
+\label{sec:org0e01730}
+\begin{enumerate}
+\item May 29, session 1: intro to Python \& web scraping with bs4
+\label{sec:orgdfc4d0b}
+\begin{enumerate}
+\item python installations
+\label{sec:org3a856a0}
+\begin{itemize}
+\item install python with anaconda
+\end{itemize}
+\item command line
+\label{sec:org712c89e}
+\begin{itemize}
+\item lesson: introduction to the command line
+\begin{itemize}
+\item navigating
+\item creating folders and files
+\item using nano
+\item curl requests
+\end{itemize}
+\end{itemize}
+\item web scraping tools \& ethics
+\label{sec:org730f599}
+\begin{itemize}
+\item bs4, scrapy, selenium
+\item what is ethical, what is legal?
+\item read article on ICE,
+\begin{itemize}
+\item quickwrite thoughts, discussion.
+\end{itemize}
+\end{itemize}
+\item BREAK
+\label{sec:org4417131}
+\item web scraping with bs4
+\label{sec:org7312f47}
+
+\begin{enumerate}
+\item Crash course on bs4: American Conservative articles
+\label{sec:org85f5f21}
+
+\begin{verbatim}
+from bs4 import BeautifulSoup
+
+import requests
+
+import lxml
+
+soup = BeautifulSoup(requests.get('https://www.theamericanconservative.com/').content, 'lxml')
+
+soup.title
+
+### demonstrate how to use the inspector tool to find different parts of the page
+
+# use the find() function to search by element and class
+soup.find('', class_ = '')
+
+# use the .text element to pull out just the text from the element
+soup.find('', class_ = '').text
+
+#### how would I get all of the headlines? what is the method?
+
+# use the find_all() method to get all of the headlines
+headlines = soup.find_all('', class_ = '')
+
+headlines
+
+for i in headlines:
+    print(i.text)
+
+### how would I save this information to a list? 
+
+titles = []
+for i in headlines:
+    titles.append(i.text)
+
+titles
+
+### challenge: use these tools to get the summary blurb for each article. 10-15 minutes & share.
+
+\end{verbatim}
+
+Challenge: write a function that scrapes all of the text from a
+webapge. Make it so you can pass different URLs into the function, and
+it will scrape a page for that URL. 
+
+Advanced challenge: how would I scrape the article text?
+hint: look at the URLs.
+\begin{itemize}
+\item make a list of URLs for every page.
+\item write a loop that goes through each one.
+\item turns that page into soup, grabs the article data, appends it to the
+list
+\end{itemize}
+
+Time to explore websites to scrape data from. Check if they are
+scrapable first.
+\end{enumerate}
+
+\item (if time): freewrite/share
+\label{sec:org49f24cc}
+\begin{itemize}
+\item Brainstorm what kind of data you are interested in working with.
+Look at some websites that may have that kind of data. Why are you
+interested in this data?
+\end{itemize}
+\item homework: find 2 scrapable sites
+\label{sec:org0bb10b1}
+Find 2 websites to scrape. Make sure if they are scrapable with bs4.
+Why are you interested in this data? What could you do with it?
+\end{enumerate}
+
+\item June 2, session 2: scrapy \& the scrapy shell
+\label{sec:org10dd84e}
+\begin{enumerate}
+\item share websites that you found
+\label{sec:orgedc68f8}
+\item introduction to scrapy shell
+\label{sec:org171b6e9}
+\begin{enumerate}
+\item setting up environment
+\label{sec:orgaee1d50}
+Create conda environment for scraping
+
+Download and install scrapy. \href{https://docs.scrapy.org/en/latest/intro/install.html\#intro-install}{Troubleshooting installtions}.
+
+\begin{verbatim}
+conda install -c conda-forge scrapy
+pip install Scrapy
+\end{verbatim}
+
+Introduction to scrapy shell
+
+\begin{verbatim}
+scrapy shell 'https://quotes.toscrape.com/page/1/'
+response.css("title::text").get()
+\end{verbatim}
+
+\item \href{https://docs.scrapy.org/en/latest/intro/tutorial.html\#extracting-data}{Extracting data} with css selectors
+\label{sec:orga810923}
+
+Syntax:
+
+\begin{verbatim}
+# basic syntax for using element and class to get text
+# returns the entire element
+response.css("element.class::text")
+
+# getting the title elements
+response.css("title::text")
+
+# getting the quote elements
+response.css("span.text::text")
+
+# combine with get() to get just the text
+response.css("title::text").get()
+
+# and just the first instance
+response.css("span.text::text").get()
+
+# or with getall() to get a list
+response.css("span.text::text").getall()
+\end{verbatim}
+
+Challenge: work to find the rest of the information on the page. Get
+all the authors and the tags.
+
+\item writing loops
+\label{sec:org2bedf95}
+\begin{itemize}
+\item write a loop that saves our information to a loop. I will
+write the first two lines.
+\begin{itemize}
+\item looping through a subset of the page.
+\item using the print function
+\item you will have to expand this loop.
+\end{itemize}
+\end{itemize}
+
+\begin{verbatim}
+# first just looping through to print
+for quote in response.css("div.quote"):
+     print(quote.css("span.text::text").get())
+
+# now saving it to a dictionary   
+quotes = {}
+for quote in response.css("div.quote"):
+    quotes["text"] = quote.css("span.text::text").get()
+\end{verbatim}
+
+Now, you will expand the loop to include author and tag information.
+\end{enumerate}
+
+\item (if time) explore a website you're interested in to get selectors
+\label{sec:orge3dfa1b}
+\item BREAK
+\label{sec:orgcd69d45}
+\item scrapy project
+\label{sec:orga6f3566}
+\begin{enumerate}
+\item starting new scrapy project
+\label{sec:org6895ff8}
+
+Install VS Code
+
+Following tutorial on scrapy's \href{https://docs.scrapy.org/en/latest/intro/tutorial.html}{tutorial in the docs}:
+
+\begin{verbatim}
+# create your Scrapy project:
+scrapy startproject project_name
+cd project_name
+
+# see the directory structure
+tree
+\end{verbatim}
+
+Create new spider manually (copy/paste code from \href{https://docs.scrapy.org/en/latest/intro/tutorial.html\#extracting-data-in-our-spider}{extracting data in
+our spider}). 
+
+\begin{verbatim}
+import scrapy
+
+
+class QuotesSpider(scrapy.Spider):
+    name = "quotes"
+    start_urls = [
+        "https://quotes.toscrape.com/page/1/",
+        "https://quotes.toscrape.com/page/2/",
+    ]
+
+    def parse(self, response):
+        for quote in response.css("div.quote"):
+            yield {
+                "text": quote.css("span.text::text").get(),
+                "author": quote.css("small.author::text").get(),
+                "tags": quote.css("div.tags a.tag::text").getall(),
+            }
+\end{verbatim}
+
+Classes:
+\begin{itemize}
+\item classes are like templates, which you can customize.
+\item contain properties and functions.
+\item \texttt{QuotesSpider} class builds on the \texttt{Spider} class.
+\item check out the \href{https://docs.scrapy.org/en/latest/topics/spiders.html}{Spider class in the docs}.
+\end{itemize}
+
+Run the spider:
+
+\texttt{scrapy crawl quotes}
+
+Then store the scraped data:
+
+\texttt{scrapy crawl quotes -O quotes.json}
+\end{enumerate}
+
+\item (if time) individual activity: apply code to website from homework
+\label{sec:org58dc317}
+\begin{itemize}
+\item change the name, urls, and selectors.
+\item run the same command
+\end{itemize}
+
+\item introduce book, read introduction together, discuss
+\label{sec:org1d9b679}
+\item homework: reading response \emph{Compost Engineers} chapters 1 \& 2
+\label{sec:orgc894d4e}
+Joana Varon and Lucía Egaña Rojas. Chapters 1 \& 2 from \emph{Compost
+Engineers and Sus Saberes Lentos: A Manifest for Regenerative
+Technologies}. Coding Rights, 2024,
+\url{https://codingrights.org/docs/compost\_engineers.pdf}.
+
+Prompt: Pick an idea from the reading that interests you (either
+because you agree with it, disagree with it, or are otherwise provoked
+by it) and explain why.
+\end{enumerate}
+
+\item June 5, session 3: blockers \& XHR
+\label{sec:orgc259363}
+\begin{enumerate}
+\item share homework, discuss reading
+\label{sec:org40e4e7c}
+\item scraping XHR
+\label{sec:org435909f}
+\href{https://scrapism.lav.io/scraping-xhr/}{Tutorial by Sam Lavigne} on scraping Bing and Customs Border
+Protection.
+
+\begin{enumerate}
+\item Exploring XHR from the command line
+\label{sec:org35dfa24}
+
+\begin{verbatim}
+from bs4 import BeautifulSoup
+import requests
+
+query = "how can i"
+
+url = (
+    "https://www.bing.com/AS/Suggestions?pt=page.home&mkt=en-us&qry="
+    + query
+    + "&cp=9&csr=1&msbqf=false&pths=1&cvid=6AE710F2D778431589574CB8424EFF70"
+)
+
+response = requests.get(url)
+
+response
+dir(response)
+response.text
+response.content
+response.json()
+
+parsed = response.json()
+
+# what kind of data structure?
+# pull out the completions
+parsed
+parsed['s'][0]
+parsed['s'][0]['q']
+parsed['s'][1]['q']
+parsed['s'][2]['q']
+
+# write a loop that prints just the completions
+for item in parsed['s']:
+    print(item['q'])
+\end{verbatim}
+
+\item Script for scraping XHR results.
+\label{sec:org95c997a}
+\begin{itemize}
+\item how \& why to create a script
+\item how \& why to write a function
+\end{itemize}
+
+Run the below. Pipe output through sort -u to sort the output of our
+script and filter out duplicates.
+
+\begin{verbatim}
+python bing_autocomplete.py | sort -u
+\end{verbatim}
+
+\begin{verbatim}
+from bs4 import BeautifulSoup
+import requests
+
+def auto_complete(query):
+  url = (
+      "https://www.bing.com/AS/Suggestions?pt=page.home&mkt=en-us&qry="
+      + query
+      + "&cp=10&cvid=B8D86CB090A240A196E4867715E40B15"
+  )
+  response = requests.get(url)
+  soup = BeautifulSoup(response.text, "html.parser")
+  items = soup.select("li")
+  for item in items:
+      print(item.text)
+
+base_query = "How can I "
+for letter in "abcdefghijklmnopqrstuvwxyz":
+    auto_complete(base_query + letter)
+    for letter2 in "abcdefghijklmnopqrstuvwxyz":
+        auto_complete(base_query + letter + letter2)
+
+\end{verbatim}
+\end{enumerate}
+\item (if time) guided practice: finding undocumented APIs
+\label{sec:orgb4f1d25}
+Yin, Leon. Finding Undocumented APIs. 24 Feb. 2023,
+\url{https://inspectelement.org/apis.html\#tutorial}.
+
+Uses developer tools to reverse engineer google searches to examine
+autocomplete results. 
+
+\item BREAK
+\label{sec:org7578075}
+\item individual activity: explore how to bypass blockers
+\label{sec:org10174f0}
+Try out some of these strategies: 
+\begin{itemize}
+\item \href{https://scrapeops.io/web-scraping-playbook/403-forbidden-error-web-scraping/}{How To Solve 403 Forbidden Errors When Web Scraping}
+\item \href{https://www.zenrows.com/blog/bypass-cloudflare-python}{How to Bypass Cloudflare in Python}
+\item \href{https://www.zenrows.com/blog/curl-bypass-cloudflare\#set-real-http-headers}{4 Methods to Bypass Cloudflare with cURL in 2025}
+\end{itemize}
+
+\item share what we've found
+\label{sec:org277e8ab}
+\item homework: \emph{Compost Engineers} chapters 3 \& 4
+\label{sec:orge27db02}
+Joana Varon and Lucía Egaña Rojas. Chapters 3 \& 4 from \emph{Compost
+Engineers and Sus Saberes Lentos: A Manifest for Regenerative
+Technologies}. Coding Rights, 2024,
+\url{https://codingrights.org/docs/compost\_engineers.pdf}.
+
+Prompt: From the authors' proposals, what do you find useful or
+surprising, and what do you have doubts about?
+\end{enumerate}
+
+\item June 9, session 4: selenium
+\label{sec:org7edf962}
+\begin{enumerate}
+\item share homework, discuss reading
+\label{sec:orgb5759a8}
+\item introduction to selenium
+\label{sec:orga7e5019}
+
+Install selenium
+
+\texttt{conda install selenium}
+\texttt{pip install selenium}
+
+Install driver
+
+\url{https://sites.google.com/chromium.org/driver/getting-started?authuser=0}
+
+\url{https://googlechromelabs.github.io/chrome-for-testing/files}
+
+Open ipython shell
+
+\begin{verbatim}
+
+# imports: driver, service, by
+from selenium import webdriver
+from selenium.webdriver.chrome.service import Service
+from selenium.webdriver.common.by import By
+
+# variables to scrape site
+url = 'https://doge.gov/'
+d_path = './chromedriver-mac-arm64/chromedriver'
+service = Service(executable_path=d_path)
+driver = webdriver.Chrome(service = service)
+
+# scrape site
+driver.get(url)
+
+### check inspector for element for each post: div.border-2
+
+# scraping element using "find_element" function, which takes two
+# arguments
+card = driver.find_element(By.CSS_SELECTOR, "div.border-2")
+card
+card.text
+
+# multiple elements with find_elements
+cards = driver.find_elements(By.CSS_SELECTOR, "div.border-2")
+cards
+
+# get just the text
+for i in cards:
+    print(i.text)
+len(cards)
+
+### group challenge: write some code to extract the important
+### information from these cards. you'll have to think about strategy:
+### are you going to loop through the cards we already haveand take
+### out the individual elements from each card, then save them to
+### lists? Or will you re-scrape the content, specifically calling
+### each item that we want?
+
+\end{verbatim}
+
+\item BREAK
+\label{sec:orgf8df89f}
+
+\item assignment: web scraping
+\label{sec:org62382fc}
+Using either scrapy or selenium, scrape some data from a website that
+you couldn't scrape before.
+Bring that data to class.
+\end{enumerate}
+\end{enumerate}
+
+\subsubsection{unit 2 chat bots (bias) - 1.5 weeks}
+\label{sec:orgde5316e}
+\begin{enumerate}
+\item June 12, session 5: spaCy for processing text
+\label{sec:org31f9cab}
+\begin{enumerate}
+\item share scraping assignments
+\label{sec:org483229d}
+\item intro to Python for cleaning text
+\label{sec:orgcac76c3}
+\begin{itemize}
+\item review replace() method and using Regex
+\item practice cleaning own dataset
+\end{itemize}
+\item the spaCy pipeline
+\label{sec:orgc878eb3}
+\item BREAK
+\label{sec:orgfb43b38}
+\item NER in spaCy
+\label{sec:org35e8a05}
+\item practice NER in dataset
+\label{sec:org8a82a6a}
+\item homework: ACLU tech \& privacy analysis write-up
+\label{sec:org842a53d}
+Choose a recent topic from this page; write up analysis of what is
+going on, and your opinion on the issue. How does the issue handle
+privacy rights and ethical uses of data?
+\url{https://www.aclu.org/press-releases?issue=privacy-technology}
+\end{enumerate}
+
+\item June 16, session 6: spacy continued, intro to transformers
+\label{sec:orgaf65d6a}
+\begin{enumerate}
+\item share homeworks
+\label{sec:org8117cf7}
+\item pattern matching in spaCy
+\label{sec:org203bc61}
+\item BREAK
+\label{sec:orgc653d0b}
+\item introduction to huggingface
+\label{sec:orgd0c53dc}
+\item how to run inference
+\label{sec:orga6cb1da}
+\item individual practice: explore tasks
+\label{sec:org0401b26}
+\item homework: run a task on your own data
+\label{sec:orgec48c48}
+\end{enumerate}
+
+\item June 19, session 7: transformers and bias
+\label{sec:org96ae030}
+\begin{enumerate}
+\item share homework
+\label{sec:org0dd93ec}
+\item how to fine-tune a model
+\label{sec:org6aeeeec}
+\item introductin to git and github
+\label{sec:org6530aca}
+\item individual practice: fine-tune a model with own data
+\label{sec:org09d926d}
+\item BREAK
+\label{sec:org914ac92}
+\item in class: read and explore COMPAS algorithm
+\label{sec:org5dd0213}
+\begin{itemize}
+\item “Can You Make AI Fairer than a Judge? Play Our Courtroom Algorithm
+Game.” MIT Technology Review,
+\url{https://www.technologyreview.com/2019/10/17/75285/ai-fairer-than-judge-criminal-risk-assessment-algorithm/}.
+\item recommended:
+\begin{itemize}
+\item Groves, Lara, et al. “Auditing Work: Exploring the New York City
+Algorithmic Bias Audit Regime.” The 2024 ACM Conference on
+Fairness, Accountability, and Transparency, ACM, 2024, pp.
+1107–20. DOI.org (Crossref),
+\url{https://doi.org/10.1145/3630106.3658959}.
+\end{itemize}
+\end{itemize}
+
+\item in class: end user algorithmic audit
+\label{sec:org2b772eb}
+\begin{itemize}
+\item goals:
+\begin{itemize}
+\item opportunity to discuss what makes something toxic
+\item opportunity to examine how models treat toxicity
+\end{itemize}
+\end{itemize}
+
+\begin{enumerate}
+\item indie-label
+\label{sec:orgf7a720e}
+
+\href{https://github.com/StanfordHCI/indie-label}{IndieLabel}
+
+Installations:
+\begin{itemize}
+\item use conda to create an env with python 3.8
+\item then use pip to install the packages
+\item if coming up against cython and/or surprise package errors, see:
+\begin{itemize}
+\item \href{https://stackoverflow.com/questions/77490435/attributeerror-cython-sources}{AttributeError: cython\_sources [duplicate}]
+\item \href{https://stackoverflow.com/questions/65679417/getting-errors-while-installing-surprise-package}{Getting errors while installing Surprise package}
+\item \href{https://stackoverflow.com/questions/79374322/importerror-cannot-import-name-cached-download-from-huggingface-hub}{ImportError: cannot import name 'cached\_download' from 'huggingface\_hub'}
+\end{itemize}
+\end{itemize}
+
+\begin{verbatim}
+
+# create a constraint to avoid cython
+echo "cython<3" > /tmp/constraint.txt 
+PIP_CONSTRAINT=/tmp/constraint.txt pip install -r requirements.txt
+
+# install scikit-surprise separately with conda
+conda install -c conda-forge scikit-surprise
+
+# error when running server.py
+pip install huggingface-hub==0.25.2
+
+\end{verbatim}
+
+Audit instructions:
+\begin{itemize}
+\item open a blank document for note-taking
+\item complete the questionnaire to get your model in the "okay" range. 
+\begin{itemize}
+\item as you complete the questionnaire, make notes of deciding factors
+that made you choose if something is toxic or not toxic.
+\end{itemize}
+\item explore the "auditing" tab, make notes on your findings.
+\end{itemize}
+
+Report:
+\begin{itemize}
+\item provide 2 examples of choices that were difficult or that made you
+second guess yourself
+\item why was the choice difficult?
+\end{itemize}
+\end{enumerate}
+
+\item source code walkthrough: bias evaluation projects
+\label{sec:org8431e53}
+\begin{itemize}
+\item goals: learn to read complicated python code/projects; adapt
+pre-existing code to your own purposes/experimentation.
+\end{itemize}
+\begin{enumerate}
+\item biases-llm-reference-letters
+\label{sec:org4b87eee}
+\url{https://github.com/uclanlp/biases-llm-reference-letters/tree/main?tab=readme-ov-file}
+
+Useful functions to count how many times certain words appear, male or
+female words.
+
+Also uses spacy to create lists of male and female nouns and
+adjectives.
+\end{enumerate}
+
+\item assignment: dataset proposal
+\label{sec:org0cf8dae}
+What is the dataset you'd like to create for your final project? Where
+would you get the data, and how would you transform it? You can
+consider tools from this class (like text generation, named entity
+recognition, pattern matching), or you can consider other
+possibilities for transforming your data. 1 page, double spaced.
+\end{enumerate}
+\end{enumerate}
+
+\subsubsection{unit 3 social media bots (algorithms) - 1.5 weeks}
+\label{sec:orgb4b3db9}
+\begin{enumerate}
+\item June 23, session 8: twitter bots
+\label{sec:org4941e2c}
+\href{https://thepythoncode.com/article/make-a-twitter-bot-in-python}{Twitter bot with Python} tutorial
+
+\begin{enumerate}
+\item configuring environments
+\label{sec:orga38d0f9}
+
+\begin{verbatim}
+
+mkdir met_women
+cd met_women
+
+conda create --name met_women
+
+# Activate the virtual environment:
+# - MacOS/Linux
+conda activate met_women
+
+\end{verbatim}
+
+\begin{verbatim}
+touch .env
+nano .env
+\end{verbatim}
+
+\begin{verbatim}
+# Consumer Keys > API Key and Secret
+API_KEY=<your-API-key>
+API_SECRET=<your-API-secret>
+
+# Authentication Tokens > Access Token and Secret
+ACCESS_TOKEN=<your-access-token>
+ACCESS_TOKEN_SECRET=<your-access-token-secret>
+\end{verbatim}
+
+\begin{verbatim}
+touch .gitignore
+nano .gitignore
+\end{verbatim}
+
+\begin{verbatim}
+__pycache__
+.env*
+\end{verbatim}
+
+\begin{verbatim}
+% pip install tweepy, requests, python-dotenv
+\end{verbatim}
+
+\item tweet.py
+\label{sec:org80ac483}
+
+touch tweet.py
+code tweet.py
+
+\begin{verbatim}
+import os
+import tweepy
+import requests
+from dotenv import load_dotenv
+from random import randint
+
+load_dotenv()
+
+API_KEY = os.getenv("API_KEY")
+API_SECRET = os.getenv("API_SECRET")
+ACCESS_TOKEN = os.getenv("ACCESS_TOKEN")
+ACCESS_TOKEN_SECRET = os.getenv("ACCESS_TOKEN_SECRET")
+
+client = tweepy.Client(
+    consumer_key=API_KEY,
+    consumer_secret=API_SECRET,
+    access_token=ACCESS_TOKEN,
+    access_token_secret=ACCESS_TOKEN_SECRET
+)
+
+def tweet_women_fact(tweepy_client):
+
+   print('fetching women from the MET...')
+   r1 = requests.get("https://collectionapi.metmuseum.org/public/collection/v1/search?q=woman")
+
+   parsed = r1.json()
+
+   number = randint(1, 100)
+
+   obj_id = parsed['objectIDs'][number]
+
+   r2 = requests.get(f"https://collectionapi.metmuseum.org/public/collection/v1/objects/{obj_id}")
+
+   parsed = r2.json()
+
+   if parsed['title'] != '':
+       text = f"Title: {parsed['title']}"
+   else:
+       text = f"Title: Unknown"
+   if parsed['artistDisplayName'] != '':
+       artist = f"Artist: {parsed['artistDisplayName']}"
+   else:
+       artist = 'Artist: Unknown'
+   if parsed['artistGender'] != '':
+       gender = parsed['artistGender']
+   else:
+       gender = 'Gender: Unknown'
+
+   image = parsed['objectURL']
+
+   tweet_text = f"{text}, {artist}, {gender} {image}"
+   print('tweeting women from the MET...')
+
+   tweepy_client.create_tweet(text=tweet_text)
+
+tweet_women_fact(client)
+
+\end{verbatim}
+
+\item deploying our bot
+\label{sec:org3ab2fce}
+
+Tutorials:
+\begin{itemize}
+\item \href{https://www.python-engineer.com/posts/run-python-github-actions/}{Adding secrets to github actions}
+\item Automating a Twitter bot with GitHub Actions (\href{https://github.com/gabrielbelolima/ttBot}{github repo})
+\begin{itemize}
+\item \href{https://medium.com/@gabrielbelolima/a-step-by-step-tutorial-part-1-3-71a7a8444b0cAutomating}{part 1/3}
+\item \href{https://medium.com/@gabrielbelolima/automating-a-twitter-bot-with-github-actions-a-step-by-step-tutorial-part-2-3-ebc4968a10ec}{part 2/3}
+\item \href{https://medium.com/@gabrielbelolima/automating-a-twitter-bot-with-github-actions-a-step-by-step-tutorial-part-3-3-df5d15b1e339}{part 3/3}
+\end{itemize}
+\end{itemize}
+
+\begin{verbatim}
+mkdir .github
+mkdir .github/workflows
+cd .github/workflows
+touch actions.yml
+code actions.yml
+\end{verbatim}
+
+\begin{verbatim}
+
+on:
+  schedule:
+#    - cron: '0 * * * *' # at top of every hour
+    - cron: '0 0 * * *' # At 00:00 every day
+
+  push: 
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+
+      - name: checkout repo content
+        uses: actions/checkout@v2 # checkout the repository content
+
+      - name: setup python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10' # install the python version needed
+
+      - name: install python packages
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: run scrupt 
+        run: python tweet.py
+        env: 
+            API_KEY: ${{ secrets.API_KEY }}
+            API_SECRET: ${{ secrets.API_SECRET }}
+            ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
+            ACCESS_TOKEN_SECRET: ${{ secrets.ACCESS_TOKEN_SECRET }}
+
+\end{verbatim}
+
+\item BREAK
+\label{sec:orgef89494}
+\item group project: social media bot tutorial
+\label{sec:org63f7c89}
+\begin{itemize}
+\item choose a social media app, like instagram, tiktok, linkedin, or
+another app of your choice.
+\item research some tutorials for scraping and/or creating a bot for that
+app. Make sure the tutorial is recent (in the last year, at
+minimum).
+\item with a partner, create a tutorial that you will use to teach your
+classmates how to scrape or create a bot on that app.
+\item tutorial should be written in markdown format, with each step
+described clearly, and code blocks to include code examples.
+\item you will present the tutorial like a lesson, where you walk your
+classmates through the process of using the tool.
+\item 20-30 minutes lesson.
+\end{itemize}
+
+Resources:
+\begin{itemize}
+\item Yin, Piotr Sapiezynski and Leon. Browser Automation. 11 June 2023,
+\url{https://inspectelement.org/browser\_automation.html}.
+\item Instagrapi, \href{https://www.youtube.com/watch?v=cW7kMeOUr20}{instagrapi tutorial}
+\item \href{https://www.geeksforgeeks.org/make-an-instagram-bot-with-python/}{Make an Instagram Bot With Python}, Geeks for Geeks
+\end{itemize}
+
+\item make a plan for actions steps by next class
+\label{sec:org728e0f8}
+\end{enumerate}
+\item (online) June 26, session 9: group project
+\label{sec:org558d42b}
+\begin{enumerate}
+\item share progress, next steps
+\label{sec:org328d209}
+\item BREAK
+\label{sec:org9bf3409}
+\item breakout work sessions
+\label{sec:orgd719be9}
+\item mini-conferences with me
+\label{sec:orgf0b5365}
+\end{enumerate}
+\item (online) June 30, session 10: group projects continued
+\label{sec:orgc01f050}
+\begin{enumerate}
+\item tutorial presentations
+\label{sec:org2475a7e}
+\item BREAK
+\label{sec:org68b631d}
+\item introduction to git
+\label{sec:org6ec880f}
+\item introduce final project assignment
+\label{sec:org4c85d39}
+\item homework: project proposal
+\label{sec:orge838c28}
+\item instagram
+\label{sec:orgc917606}
+User: trans\_phobia\_
+pass: supersecure
+\end{enumerate}
+\end{enumerate}
+
+\subsubsection{unit 4 project workshops \& presentations - 1 week}
+\label{sec:org285f75e}
+\begin{enumerate}
+\item (online) July 3
+\label{sec:org5b3c3e0}
+\begin{itemize}
+\item share progress
+\item project workshops
+\item mini conferences
+\end{itemize}
+\item (online) July 7
+\label{sec:org020d9a9}
+\begin{itemize}
+\item presentations
+\end{itemize}
+\end{enumerate}
+\subsubsection{recommended readings}
+\label{sec:org1dbeb1a}
+
+\begin{enumerate}
+\item on data gathering and web scraping
+\label{sec:org9e6db19}
+\begin{itemize}
+\item Dodge, Jesse, et al. “Documenting Large Webtext Corpora: A Case
+Study on the Colossal Clean Crawled Corpus.” Proceedings of the 2021
+Conference on Empirical Methods in Natural Language Processing,
+edited by Marie-Francine Moens et al., Association for Computational
+Linguistics, 2021, pp. 1286–305. ACLWeb,
+\url{https://doi.org/10.18653/v1/2021.emnlp-main.98}.
+\item Jo, Eun Seo, and Timnit Gebru. “Lessons from Archives: Strategies
+for Collecting Sociocultural Data in Machine Learning.” Proceedings
+of the 2020 Conference on Fairness, Accountability, and
+Transparency, Association for Computing Machinery, 2020, pp. 306–16.
+ACM Digital Library, \url{https://doi.org/10.1145/3351095.3372829}.
+\item Chan, Anita Say. Predatory Data: Eugenics in Big Tech and Our Fight
+for an Independent Future. University of California Press, 2025.
+library.oapen.org, \url{https://doi.org/10.1525/luminos.215}.
+\item Métraux, Julia. “Eugenics Isn’t Dead—It’s Thriving in Tech.” Mother
+Jones,
+\url{https://www.motherjones.com/politics/2025/01/eugenics-isnt-dead-its-thriving-in-tech/}.
+Accessed 14 Feb. 2025.
+\end{itemize}
+
+\item on machine learning
+\label{sec:org1cabce4}
+\begin{itemize}
+\item Alammar, Jay. The Illustrated BERT, ELMo, and Co. (How NLP Cracked
+Transfer Learning). \url{https://jalammar.github.io/illustrated-bert/}.
+Accessed 14 Apr. 2025.
+\item Alammar, Jay. The Illustrated DeepSeek-R1. 10 Feb. 2025,
+\url{https://newsletter.languagemodels.co/p/the-illustrated-deepseek-r1}.
+\end{itemize}
+
+\item case studies of algorithmic bias \& audits
+\label{sec:org11c2bb0}
+\begin{itemize}
+\item Hada, Rishav, et al. “Akal Badi Ya Bias: An Exploratory Study of
+Gender Bias in Hindi Language Technology.” The 2024 ACM Conference
+on Fairness, Accountability, and Transparency, ACM, 2024, pp.
+1926–39. DOI.org (Crossref),
+\url{https://doi.org/10.1145/3630106.3659017}.
+\item Gajjala, Radhika, et al. “Get the Hammer out! Breaking Computational
+Tools for Feminist, Intersectional ‘Small Data’ Research.” Journal
+of Digital Social Research, vol. 6, no. 2, 2, May 2024, pp. 9–26.
+jdsr.se, \url{https://doi.org/10.33621/jdsr.v6i2.193}.
+\item Tang, Ningjing, et al. “AI Failure Cards: Understanding and
+Supporting Grassroots Efforts to Mitigate AI Failures in Homeless
+Services.” The 2024 ACM Conference on Fairness, Accountability, and
+Transparency, ACM, 2024, pp. 713–32. DOI.org (Crossref),
+\url{https://doi.org/10.1145/3630106.3658935}.
+\item Groves, Lara, et al. “Auditing Work: Exploring the New York City
+Algorithmic Bias Audit Regime.” The 2024 ACM Conference on Fairness,
+Accountability, and Transparency, ACM, 2024, pp. 1107–20. DOI.org
+(Crossref), \url{https://doi.org/10.1145/3630106.3658959}.
+\item Costanza-Chock, Sasha, et al. “Who Audits the Auditors?
+Recommendations from a Field Scan of the Algorithmic Auditing
+Ecosystem.” Proceedings of the 2022 ACM Conference on Fairness,
+Accountability, and Transparency, Association for Computing
+Machinery, 2022, pp. 1571–83. ACM Digital Library,
+\url{https://doi.org/10.1145/3531146.3533213}.
+\end{itemize}
+\end{enumerate}
+
+
+\subsection{assignments}
+\label{sec:orgafacd38}
+\subsubsection{participation (30\%)}
+\label{sec:org8a80c86}
+\begin{itemize}
+\item includes daily homework
+\end{itemize}
+\subsubsection{unit assignments (30\%)}
+\label{sec:orgc35bf52}
+\begin{itemize}
+\item includes the assignment at the end of units 1-3
+\end{itemize}
+\subsubsection{final project: some bot! (40\%)}
+\label{sec:org5428328}
+\begin{itemize}
+\item final project that takes some data from web scraping or APIs, and
+uses it as the content for a bot.
+\item bot to be automated and published on github.
+\end{itemize}
+\end{document}

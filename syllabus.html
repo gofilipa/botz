@@ -1,0 +1,676 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<!-- 2025-05-27 Tue 15:01 -->
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>&lrm;</title>
+<meta name="author" content="fcalado" />
+<meta name="generator" content="Org Mode" />
+<style>
+  #content { max-width: 60em; margin: auto; }
+  .title  { text-align: center;
+             margin-bottom: .2em; }
+  .subtitle { text-align: center;
+              font-size: medium;
+              font-weight: bold;
+              margin-top:0; }
+  .todo   { font-family: monospace; color: red; }
+  .done   { font-family: monospace; color: green; }
+  .priority { font-family: monospace; color: orange; }
+  .tag    { background-color: #eee; font-family: monospace;
+            padding: 2px; font-size: 80%; font-weight: normal; }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .org-right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .org-left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .org-center { margin-left: auto; margin-right: auto; text-align: center; }
+  .underline { text-decoration: underline; }
+  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
+  p.verse { margin-left: 3%; }
+  pre {
+    border: 1px solid #e6e6e6;
+    border-radius: 3px;
+    background-color: #f2f2f2;
+    padding: 8pt;
+    font-family: monospace;
+    overflow: auto;
+    margin: 1.2em;
+  }
+  pre.src {
+    position: relative;
+    overflow: auto;
+  }
+  pre.src:before {
+    display: none;
+    position: absolute;
+    top: -8px;
+    right: 12px;
+    padding: 3px;
+    color: #555;
+    background-color: #f2f2f299;
+  }
+  pre.src:hover:before { display: inline; margin-top: 14px;}
+  /* Languages per Org manual */
+  pre.src-asymptote:before { content: 'Asymptote'; }
+  pre.src-awk:before { content: 'Awk'; }
+  pre.src-authinfo::before { content: 'Authinfo'; }
+  pre.src-C:before { content: 'C'; }
+  /* pre.src-C++ doesn't work in CSS */
+  pre.src-clojure:before { content: 'Clojure'; }
+  pre.src-css:before { content: 'CSS'; }
+  pre.src-D:before { content: 'D'; }
+  pre.src-ditaa:before { content: 'ditaa'; }
+  pre.src-dot:before { content: 'Graphviz'; }
+  pre.src-calc:before { content: 'Emacs Calc'; }
+  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+  pre.src-fortran:before { content: 'Fortran'; }
+  pre.src-gnuplot:before { content: 'gnuplot'; }
+  pre.src-haskell:before { content: 'Haskell'; }
+  pre.src-hledger:before { content: 'hledger'; }
+  pre.src-java:before { content: 'Java'; }
+  pre.src-js:before { content: 'Javascript'; }
+  pre.src-latex:before { content: 'LaTeX'; }
+  pre.src-ledger:before { content: 'Ledger'; }
+  pre.src-lisp:before { content: 'Lisp'; }
+  pre.src-lilypond:before { content: 'Lilypond'; }
+  pre.src-lua:before { content: 'Lua'; }
+  pre.src-matlab:before { content: 'MATLAB'; }
+  pre.src-mscgen:before { content: 'Mscgen'; }
+  pre.src-ocaml:before { content: 'Objective Caml'; }
+  pre.src-octave:before { content: 'Octave'; }
+  pre.src-org:before { content: 'Org mode'; }
+  pre.src-oz:before { content: 'OZ'; }
+  pre.src-plantuml:before { content: 'Plantuml'; }
+  pre.src-processing:before { content: 'Processing.js'; }
+  pre.src-python:before { content: 'Python'; }
+  pre.src-R:before { content: 'R'; }
+  pre.src-ruby:before { content: 'Ruby'; }
+  pre.src-sass:before { content: 'Sass'; }
+  pre.src-scheme:before { content: 'Scheme'; }
+  pre.src-screen:before { content: 'Gnu Screen'; }
+  pre.src-sed:before { content: 'Sed'; }
+  pre.src-sh:before { content: 'shell'; }
+  pre.src-sql:before { content: 'SQL'; }
+  pre.src-sqlite:before { content: 'SQLite'; }
+  /* additional languages in org.el's org-babel-load-languages alist */
+  pre.src-forth:before { content: 'Forth'; }
+  pre.src-io:before { content: 'IO'; }
+  pre.src-J:before { content: 'J'; }
+  pre.src-makefile:before { content: 'Makefile'; }
+  pre.src-maxima:before { content: 'Maxima'; }
+  pre.src-perl:before { content: 'Perl'; }
+  pre.src-picolisp:before { content: 'Pico Lisp'; }
+  pre.src-scala:before { content: 'Scala'; }
+  pre.src-shell:before { content: 'Shell Script'; }
+  pre.src-ebnf2ps:before { content: 'ebfn2ps'; }
+  /* additional language identifiers per "defun org-babel-execute"
+       in ob-*.el */
+  pre.src-cpp:before  { content: 'C++'; }
+  pre.src-abc:before  { content: 'ABC'; }
+  pre.src-coq:before  { content: 'Coq'; }
+  pre.src-groovy:before  { content: 'Groovy'; }
+  /* additional language identifiers from org-babel-shell-names in
+     ob-shell.el: ob-shell is the only babel language using a lambda to put
+     the execution function name together. */
+  pre.src-bash:before  { content: 'bash'; }
+  pre.src-csh:before  { content: 'csh'; }
+  pre.src-ash:before  { content: 'ash'; }
+  pre.src-dash:before  { content: 'dash'; }
+  pre.src-ksh:before  { content: 'ksh'; }
+  pre.src-mksh:before  { content: 'mksh'; }
+  pre.src-posh:before  { content: 'posh'; }
+  /* Additional Emacs modes also supported by the LaTeX listings package */
+  pre.src-ada:before { content: 'Ada'; }
+  pre.src-asm:before { content: 'Assembler'; }
+  pre.src-caml:before { content: 'Caml'; }
+  pre.src-delphi:before { content: 'Delphi'; }
+  pre.src-html:before { content: 'HTML'; }
+  pre.src-idl:before { content: 'IDL'; }
+  pre.src-mercury:before { content: 'Mercury'; }
+  pre.src-metapost:before { content: 'MetaPost'; }
+  pre.src-modula-2:before { content: 'Modula-2'; }
+  pre.src-pascal:before { content: 'Pascal'; }
+  pre.src-ps:before { content: 'PostScript'; }
+  pre.src-prolog:before { content: 'Prolog'; }
+  pre.src-simula:before { content: 'Simula'; }
+  pre.src-tcl:before { content: 'tcl'; }
+  pre.src-tex:before { content: 'TeX'; }
+  pre.src-plain-tex:before { content: 'Plain TeX'; }
+  pre.src-verilog:before { content: 'Verilog'; }
+  pre.src-vhdl:before { content: 'VHDL'; }
+  pre.src-xml:before { content: 'XML'; }
+  pre.src-nxml:before { content: 'XML'; }
+  /* add a generic configuration mode; LaTeX export needs an additional
+     (add-to-list 'org-latex-listings-langs '(conf " ")) in .emacs */
+  pre.src-conf:before { content: 'Configuration File'; }
+
+  table { border-collapse:collapse; }
+  caption.t-above { caption-side: top; }
+  caption.t-bottom { caption-side: bottom; }
+  td, th { vertical-align:top;  }
+  th.org-right  { text-align: center;  }
+  th.org-left   { text-align: center;   }
+  th.org-center { text-align: center; }
+  td.org-right  { text-align: right;  }
+  td.org-left   { text-align: left;   }
+  td.org-center { text-align: center; }
+  dt { font-weight: bold; }
+  .footpara { display: inline; }
+  .footdef  { margin-bottom: 1em; }
+  .figure { padding: 1em; }
+  .figure p { text-align: center; }
+  .equation-container {
+    display: table;
+    text-align: center;
+    width: 100%;
+  }
+  .equation {
+    vertical-align: middle;
+  }
+  .equation-label {
+    display: table-cell;
+    text-align: right;
+    vertical-align: middle;
+  }
+  .inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
+    background: #ffffcc;
+  }
+  #org-div-home-and-up
+   { text-align: right; font-size: 70%; white-space: nowrap; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size: smaller }
+  .code-highlighted { background-color: #ffff00; }
+  .org-info-js_info-navigation { border-style: none; }
+  #org-info-js_console-label
+    { font-size: 10px; font-weight: bold; white-space: nowrap; }
+  .org-info-js_search-highlight
+    { background-color: #ffff00; color: #000000; font-weight: bold; }
+  .org-svg { }
+</style>
+</head>
+<body>
+<div id="content" class="content">
+<div id="table-of-contents" role="doc-toc">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents" role="doc-toc">
+<ul>
+<li><a href="#org87f7d35">1. syllabus</a>
+<ul>
+<li><a href="#org3f607e9">1.1. course information</a></li>
+<li><a href="#orga43ba39">1.2. instructor contact information</a></li>
+<li><a href="#org067ebca">1.3. course description</a></li>
+<li><a href="#orgaa4c745">1.4. student learning outcomes:</a></li>
+<li><a href="#org980c1a4">1.5. course format</a></li>
+<li><a href="#orgf0d7cce">1.6. course materials</a></li>
+<li><a href="#org69ca9e0">1.7. class communication</a></li>
+<li><a href="#org3db3dc0">1.8. course schedule</a>
+<ul>
+<li><a href="#org94337d4">1.8.1. unit 1 web crawling bots - 2 weeks</a></li>
+<li><a href="#org86e1d90">1.8.2. unit 2 chat bots - 1.5 weeks</a></li>
+<li><a href="#orgb357eff">1.8.3. unit 3 social media bots - 1.5 weeks</a></li>
+<li><a href="#org4ea2c45">1.8.4. unit 4 project workshops &amp; presentations - 1 week</a></li>
+</ul>
+</li>
+<li><a href="#orgb85ca31">1.9. assignments</a>
+<ul>
+<li><a href="#orgfcc5b1d">1.9.1. participation (30%)</a></li>
+<li><a href="#orgde25a9a">1.9.2. unit assignments (30%)</a></li>
+<li><a href="#org34ffd0a">1.9.3. final project: some bot! (40%)</a></li>
+</ul>
+</li>
+<li><a href="#orgb6e5aaf">1.10. recommended readings</a>
+<ul>
+<li><a href="#orgd2bced3">1.10.1. on data gathering and web scraping</a></li>
+<li><a href="#org1f673ea">1.10.2. on machine learning</a></li>
+<li><a href="#org3dd866c">1.10.3. case studies of algorithmic bias &amp; audits</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<div id="outline-container-org87f7d35" class="outline-2">
+<h2 id="org87f7d35"><span class="section-number-2">1.</span> syllabus</h2>
+<div class="outline-text-2" id="text-1">
+</div>
+<div id="outline-container-org3f607e9" class="outline-3">
+<h3 id="org3f607e9"><span class="section-number-3">1.1.</span> course information</h3>
+<div class="outline-text-3" id="text-1-1">
+<p>
+Summer 2025
+</p>
+
+<p>
+606 Pratt Manhattan Campus 
+</p>
+
+<p>
+M/Th 10:00 AM - 1:50 PM
+</p>
+
+<p>
+5/27/2025 - 7/8/2025
+</p>
+
+<p>
+Credits: 3
+</p>
+
+<p>
+Prerequisites or other restrictions: INFO 664
+</p>
+</div>
+</div>
+
+<div id="outline-container-orga43ba39" class="outline-3">
+<h3 id="orga43ba39"><span class="section-number-3">1.2.</span> instructor contact information</h3>
+<div class="outline-text-3" id="text-1-2">
+<p>
+Filipa Calado, PhD (she/her)
+</p>
+
+<p>
+Office Location: Pratt Manhattan Campus, room 602
+</p>
+
+<p>
+Office Hours: by appointment (summer only)
+</p>
+
+<p>
+Phone: 718-687-5194
+</p>
+
+<p>
+Email: fcalado@pratt.edu
+</p>
+
+<p>
+Zoom: <a href="https://pratt.zoom.us/my/fcalado">https://pratt.zoom.us/my/fcalado</a>
+</p>
+
+<p>
+Website: <a href="https://filipacalado.com">https://filipacalado.com</a> 
+</p>
+</div>
+</div>
+
+<div id="outline-container-org067ebca" class="outline-3">
+<h3 id="org067ebca"><span class="section-number-3">1.3.</span> course description</h3>
+<div class="outline-text-3" id="text-1-3">
+<p>
+This course offers a practical introduction to building bots in Python
+alongside a critical examination of algorithmic bias. Students will
+learn core programming skills like data collection and API interaction
+in order to create web crawlers and social media bots. In parallel,
+students will explore the ethical consequences of automated systems on
+social platforms, such as the amplification of misinformation and bias
+that perpetuate social inequalities and discrimination. This course
+will equip students with the critical perspectives and technical
+skills to analyze automated systems in a world increasingly shaped by
+AI and algorithmic decision-making. This course is intended for
+students interested in both technical development and the social
+impacts of automation.
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgaa4c745" class="outline-3">
+<h3 id="orgaa4c745"><span class="section-number-3">1.4.</span> student learning outcomes:</h3>
+<div class="outline-text-3" id="text-1-4">
+<p>
+Upon successful completion of this course, students will be able to:
+</p>
+<ul class="org-ul">
+<li>develop programming literacies for working with popular software in
+Python for web crawling and API usage.</li>
+<li>gain hands-on experience in computational data collection and
+parsing.</li>
+<li>identify and explain how choices in bot design, such as source
+selection, keyword filtering, and data processing, can introduce
+and/or amplify biases.</li>
+<li>critically assess the societal impact of bots, especially those used
+in social media, evaluating how bots might influence information
+visibility and public discourse.</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-org980c1a4" class="outline-3">
+<h3 id="org980c1a4"><span class="section-number-3">1.5.</span> course format</h3>
+<div class="outline-text-3" id="text-1-5">
+<p>
+This course will be held in hybrid format, with the first four weeks
+of meetings (May 29 - June 23) in person, and the last two weeks of
+meetings (June 26 - July 7) on zoom.
+</p>
+
+<p>
+Our sessions will be split evently between lecture, individual
+practice, and group work. This contrasts with the prerequisite course,
+INFO 664, which focused more heavily on lecture.
+</p>
+
+<p>
+For each meeting, one 30-minute break will take place from
+approximately 12:00pm-12:30pm.
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgf0d7cce" class="outline-3">
+<h3 id="orgf0d7cce"><span class="section-number-3">1.6.</span> course materials</h3>
+<div class="outline-text-3" id="text-1-6">
+<p>
+Having a personal laptop (not a tablet) where you can install software
+is essential for this class.
+</p>
+
+<p>
+All assignments and readings will be provided electronically and
+hosted on github at <a href="https:gofilipa.github.io/how2bot">https:gofilipa.github.io/how2bot</a>.
+</p>
+</div>
+</div>
+
+<div id="outline-container-org69ca9e0" class="outline-3">
+<h3 id="org69ca9e0"><span class="section-number-3">1.7.</span> class communication</h3>
+<div class="outline-text-3" id="text-1-7">
+<p>
+The instructor will contact you via your pratt email (linked to
+Canvas). If you don't check that email frequently, please remember to
+do so for this class or set up mail forwarding.
+</p>
+
+<p>
+The best avenue for contacting the instructor is via email, at
+fcalado@pratt.edu. Response time should be within 2 business days,
+otherwise feel free to follow up. 
+</p>
+</div>
+</div>
+
+<div id="outline-container-org3db3dc0" class="outline-3">
+<h3 id="org3db3dc0"><span class="section-number-3">1.8.</span> course schedule</h3>
+<div class="outline-text-3" id="text-1-8">
+</div>
+<div id="outline-container-org94337d4" class="outline-4">
+<h4 id="org94337d4"><span class="section-number-4">1.8.1.</span> unit 1 web crawling bots - 2 weeks</h4>
+<div class="outline-text-4" id="text-1-8-1">
+</div>
+<ol class="org-ol">
+<li><a id="org9ac6066"></a>May 29, session 1: intro to Python &amp; web scraping with bs4<br />
+<div class="outline-text-5" id="text-1-8-1-1">
+<p>
+homework: find 2 scrapable sites
+</p>
+<ul class="org-ul">
+<li>find 2 websites to scrape. Make sure if they are scrapable with bs4.
+Why are you interested in this data? What could you do with it?</li>
+</ul>
+</div>
+</li>
+
+<li><a id="org2709666"></a>June 2, session 2: scrapy &amp; the scrapy shell<br />
+<div class="outline-text-5" id="text-1-8-1-2">
+<p>
+homework: reading response <i>Compost Engineers</i> chapters 1 &amp; 2
+</p>
+<ul class="org-ul">
+<li>Joana Varon and Lucía Egaña Rojas. Chapters 1 &amp; 2 from <i>Compost
+Engineers and Sus Saberes Lentos: A Manifest for Regenerative
+Technologies</i>. Coding Rights, 2024,
+<a href="https://codingrights.org/docs/compost_engineers.pdf">https://codingrights.org/docs/compost_engineers.pdf</a>.</li>
+<li>Prompt: Pick an idea from the reading that interests you (either
+because you agree with it, disagree with it, or are otherwise
+provoked by it) and explain why. 1 page.</li>
+</ul>
+</div>
+</li>
+
+<li><a id="orgb48cd43"></a>June 5, session 3: blockers &amp; XHR<br />
+<div class="outline-text-5" id="text-1-8-1-3">
+<p>
+homework: <i>Compost Engineers</i> chapters 3 &amp; 4
+</p>
+<ul class="org-ul">
+<li>Joana Varon and Lucía Egaña Rojas. Chapters 3 &amp; 4 from <i>Compost
+Engineers and Sus Saberes Lentos: A Manifest for Regenerative
+Technologies</i>. Coding Rights, 2024,
+<a href="https://codingrights.org/docs/compost_engineers.pdf">https://codingrights.org/docs/compost_engineers.pdf</a>.</li>
+<li>Prompt: From the authors' proposals, what do you find useful or
+surprising, and what do you have doubts about? 1 page.</li>
+</ul>
+</div>
+</li>
+
+<li><a id="org264c226"></a>June 9, session 4: selenium<br />
+<div class="outline-text-5" id="text-1-8-1-4">
+<p>
+assignment: web scraping
+</p>
+<ul class="org-ul">
+<li>Using either scrapy or selenium, scrape some data from a website
+that you couldn't scrape before.</li>
+</ul>
+</div>
+</li>
+</ol>
+</div>
+
+<div id="outline-container-org86e1d90" class="outline-4">
+<h4 id="org86e1d90"><span class="section-number-4">1.8.2.</span> unit 2 chat bots - 1.5 weeks</h4>
+<div class="outline-text-4" id="text-1-8-2">
+</div>
+<ol class="org-ol">
+<li><a id="orgcdbf865"></a>June 12, session 5: spaCy for processing text<br />
+<div class="outline-text-5" id="text-1-8-2-1">
+<p>
+homework: ACLU tech &amp; privacy analysis write-up
+</p>
+<ul class="org-ul">
+<li>Choose a recent topic from this page; write up analysis of what is
+going on, and your opinion on the issue. How does the issue handle
+privacy rights and ethical uses of data?
+<a href="https://www.aclu.org/press-releases?issue=privacy-technology">https://www.aclu.org/press-releases?issue=privacy-technology</a></li>
+</ul>
+</div>
+</li>
+
+<li><a id="orgd614e54"></a>June 16, session 6: spacy continued, intro to transformers<br />
+<div class="outline-text-5" id="text-1-8-2-2">
+<p>
+homework: run a task on your own data
+</p>
+</div>
+</li>
+
+<li><a id="org6994198"></a>June 19, session 7: transformers continued<br />
+<div class="outline-text-5" id="text-1-8-2-3">
+<p>
+assignment: dataset proposal
+</p>
+<ul class="org-ul">
+<li>What is the dataset you'd like to create for your final project?
+Where would you get the data, and how would you transform it? You
+can consider tools from this class (like text generation, named
+entity recognition, pattern matching), or you can consider other
+possibilities for transforming your data. 1 page, double spaced.</li>
+</ul>
+</div>
+</li>
+</ol>
+</div>
+
+<div id="outline-container-orgb357eff" class="outline-4">
+<h4 id="orgb357eff"><span class="section-number-4">1.8.3.</span> unit 3 social media bots - 1.5 weeks</h4>
+<div class="outline-text-4" id="text-1-8-3">
+</div>
+<ol class="org-ol">
+<li><a id="org7ff1797"></a>June 23, session 8: twitter bots<br />
+<div class="outline-text-5" id="text-1-8-3-1">
+<p>
+homework: make a plan for actions steps by next class
+</p>
+</div>
+</li>
+
+<li><a id="org1104927"></a>(online) June 26, session 9: group projects<br />
+<div class="outline-text-5" id="text-1-8-3-2">
+<p>
+homework: work on projects
+</p>
+</div>
+</li>
+
+<li><a id="orgd60484a"></a>(online) June 30, session 10: group projects continued<br />
+<div class="outline-text-5" id="text-1-8-3-3">
+<p>
+homework: project proposal
+</p>
+</div>
+</li>
+</ol>
+</div>
+
+<div id="outline-container-org4ea2c45" class="outline-4">
+<h4 id="org4ea2c45"><span class="section-number-4">1.8.4.</span> unit 4 project workshops &amp; presentations - 1 week</h4>
+<div class="outline-text-4" id="text-1-8-4">
+</div>
+<ol class="org-ol">
+<li><a id="org607cce8"></a>(online) July 3, final projects<br />
+<div class="outline-text-5" id="text-1-8-4-1">
+<p>
+homework: work on projects
+</p>
+</div>
+</li>
+
+<li><a id="orgbb693d4"></a>(online) July 7, final project presentations<br /></li>
+</ol>
+</div>
+</div>
+
+<div id="outline-container-orgb85ca31" class="outline-3">
+<h3 id="orgb85ca31"><span class="section-number-3">1.9.</span> assignments</h3>
+<div class="outline-text-3" id="text-1-9">
+</div>
+<div id="outline-container-orgfcc5b1d" class="outline-4">
+<h4 id="orgfcc5b1d"><span class="section-number-4">1.9.1.</span> participation (30%)</h4>
+<div class="outline-text-4" id="text-1-9-1">
+<ul class="org-ul">
+<li>Includes in-class engagement, and completing and sharing homework</li>
+</ul>
+</div>
+</div>
+<div id="outline-container-orgde25a9a" class="outline-4">
+<h4 id="orgde25a9a"><span class="section-number-4">1.9.2.</span> unit assignments (30%)</h4>
+<div class="outline-text-4" id="text-1-9-2">
+<ul class="org-ul">
+<li>Average score of 3 assignments at the end of units 1-3</li>
+</ul>
+</div>
+</div>
+<div id="outline-container-org34ffd0a" class="outline-4">
+<h4 id="org34ffd0a"><span class="section-number-4">1.9.3.</span> final project: some bot! (40%)</h4>
+<div class="outline-text-4" id="text-1-9-3">
+<ul class="org-ul">
+<li>A final project that takes some data from web scraping or APIs, and
+uses it as the content for a bot.</li>
+<li>bot to be automated and published on github.</li>
+</ul>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgb6e5aaf" class="outline-3">
+<h3 id="orgb6e5aaf"><span class="section-number-3">1.10.</span> recommended readings</h3>
+<div class="outline-text-3" id="text-1-10">
+</div>
+<div id="outline-container-orgd2bced3" class="outline-4">
+<h4 id="orgd2bced3"><span class="section-number-4">1.10.1.</span> on data gathering and web scraping</h4>
+<div class="outline-text-4" id="text-1-10-1">
+<ul class="org-ul">
+<li>Dodge, Jesse, et al. “Documenting Large Webtext Corpora: A Case
+Study on the Colossal Clean Crawled Corpus.” Proceedings of the 2021
+Conference on Empirical Methods in Natural Language Processing,
+edited by Marie-Francine Moens et al., Association for Computational
+Linguistics, 2021, pp. 1286–305. ACLWeb,
+<a href="https://doi.org/10.18653/v1/2021.emnlp-main.98">https://doi.org/10.18653/v1/2021.emnlp-main.98</a>.</li>
+<li>Jo, Eun Seo, and Timnit Gebru. “Lessons from Archives: Strategies
+for Collecting Sociocultural Data in Machine Learning.” Proceedings
+of the 2020 Conference on Fairness, Accountability, and
+Transparency, Association for Computing Machinery, 2020, pp. 306–16.
+ACM Digital Library, <a href="https://doi.org/10.1145/3351095.3372829">https://doi.org/10.1145/3351095.3372829</a>.</li>
+<li>Chan, Anita Say. Predatory Data: Eugenics in Big Tech and Our Fight
+for an Independent Future. University of California Press, 2025.
+library.oapen.org, <a href="https://doi.org/10.1525/luminos.215">https://doi.org/10.1525/luminos.215</a>.</li>
+<li>Métraux, Julia. “Eugenics Isn’t Dead—It’s Thriving in Tech.” Mother
+Jones,
+<a href="https://www.motherjones.com/politics/2025/01/eugenics-isnt-dead-its-thriving-in-tech/">https://www.motherjones.com/politics/2025/01/eugenics-isnt-dead-its-thriving-in-tech/</a>.
+Accessed 14 Feb. 2025.</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-org1f673ea" class="outline-4">
+<h4 id="org1f673ea"><span class="section-number-4">1.10.2.</span> on machine learning</h4>
+<div class="outline-text-4" id="text-1-10-2">
+<ul class="org-ul">
+<li>Alammar, Jay. The Illustrated BERT, ELMo, and Co. (How NLP Cracked
+Transfer Learning). <a href="https://jalammar.github.io/illustrated-bert/">https://jalammar.github.io/illustrated-bert/</a>.
+Accessed 14 Apr. 2025.</li>
+<li>Alammar, Jay. The Illustrated DeepSeek-R1. 10 Feb. 2025,
+<a href="https://newsletter.languagemodels.co/p/the-illustrated-deepseek-r1">https://newsletter.languagemodels.co/p/the-illustrated-deepseek-r1</a>.</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-org3dd866c" class="outline-4">
+<h4 id="org3dd866c"><span class="section-number-4">1.10.3.</span> case studies of algorithmic bias &amp; audits</h4>
+<div class="outline-text-4" id="text-1-10-3">
+<ul class="org-ul">
+<li>Hada, Rishav, et al. “Akal Badi Ya Bias: An Exploratory Study of
+Gender Bias in Hindi Language Technology.” The 2024 ACM Conference
+on Fairness, Accountability, and Transparency, ACM, 2024, pp.
+1926–39. DOI.org (Crossref),
+<a href="https://doi.org/10.1145/3630106.3659017">https://doi.org/10.1145/3630106.3659017</a>.</li>
+<li>Gajjala, Radhika, et al. “Get the Hammer out! Breaking Computational
+Tools for Feminist, Intersectional ‘Small Data’ Research.” Journal
+of Digital Social Research, vol. 6, no. 2, 2, May 2024, pp. 9–26.
+jdsr.se, <a href="https://doi.org/10.33621/jdsr.v6i2.193">https://doi.org/10.33621/jdsr.v6i2.193</a>.</li>
+<li>Tang, Ningjing, et al. “AI Failure Cards: Understanding and
+Supporting Grassroots Efforts to Mitigate AI Failures in Homeless
+Services.” The 2024 ACM Conference on Fairness, Accountability, and
+Transparency, ACM, 2024, pp. 713–32. DOI.org (Crossref),
+<a href="https://doi.org/10.1145/3630106.3658935">https://doi.org/10.1145/3630106.3658935</a>.</li>
+<li>Groves, Lara, et al. “Auditing Work: Exploring the New York City
+Algorithmic Bias Audit Regime.” The 2024 ACM Conference on Fairness,
+Accountability, and Transparency, ACM, 2024, pp. 1107–20. DOI.org
+(Crossref), <a href="https://doi.org/10.1145/3630106.3658959">https://doi.org/10.1145/3630106.3658959</a>.</li>
+<li>Costanza-Chock, Sasha, et al. “Who Audits the Auditors?
+Recommendations from a Field Scan of the Algorithmic Auditing
+Ecosystem.” Proceedings of the 2022 ACM Conference on Fairness,
+Accountability, and Transparency, Association for Computing
+Machinery, 2022, pp. 1571–83. ACM Digital Library,
+<a href="https://doi.org/10.1145/3531146.3533213">https://doi.org/10.1145/3531146.3533213</a>.</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<p class="author">Author: fcalado</p>
+<p class="date">Created: 2025-05-27 Tue 15:01</p>
+<p class="validation"><a href="https://validator.w3.org/check?uri=referer">Validate</a></p>
+</div>
+</body>
+</html>
