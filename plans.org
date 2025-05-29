@@ -1,23 +1,132 @@
 * course schedule
 ** unit 1 web crawling bots - 2 weeks
 *** May 29, session 1: intro to Python & web scraping with bs4
-**** python installations
+**** syllabus & python installations (15m)
+- check if python is 3+, ideally 3.9+
 - install python with anaconda
-**** command line
+
+  #+begin_src console
+
+    python --version
+    which python
+    
+  #+end_src
+
+**** command line (30-45m)
 - lesson: introduction to the command line
   - navigating
   - creating folders and files
   - using nano
   - curl requests
-**** web scraping tools & ethics
+
+Navigating
+
+#+begin_src console
+  # navigation
+  cd
+  cd ~
+  cd ..
+  cd /
+
+  # listing and flags
+  ls
+  ls -a
+  ls -l
+
+  # creating files and folders
+  mkdir botz
+  touch test.md
+  touch test.py
+
+  # editing files
+  nano test.md
+  
+#+end_src
+
+Now, review lists and loops.
+
+~nano test.py~
+
+#+begin_src python
+  # create a list of breakfast items
+  # write a loop that prints the items
+#+end_src
+
+Curl requests
+
+#+begin_src console
+  curl -L "https://nytimes.com" -o nyt.html  
+#+end_src
+
+Individual practice: play around with curl, saving a couple of websites that you're
+interested in to your new folder as .html files.
+
+**** web scraping tools & ethics (30-45m)
 - bs4, scrapy, selenium
 - what is ethical, what is legal?
 - read article on ICE,
-  - quickwrite thoughts, discussion. 
-**** BREAK
-**** web scraping with bs4
+  - quickwrite thoughts, discussion.
 
-***** Crash course on bs4: American Conservative articles
+Web scraping tools:
+- bs4
+- scrapy
+- selenium
+
+Ethics and Legality
+- to know if it's legal, check:
+  - Terms of Service: If the terms say that reproduction or copying is
+    not permitted, you cannot legally display any information you
+    gather from the site. If the Terms of Service prohibits
+    web-crawling or web-scraping, you should not use web-crawling or
+    web-scraping on the site.
+  - Is the information private? Determine whether the information
+    you’re using could be considered “private.” Did you have to log-in
+    to see the information? Is it personal in nature? If so, there may
+    be additional restrictions on its use.
+  - “robots.txt” file? Laws surrounding web-crawling and web-scraping
+    prohibit you from bypassing this code.
+- Computer Fraud and Abuse Act, 1986
+  - not allowed to access a computer without authorization
+  - doesn't define authorization
+- /U.S. v Aaron Swartz/ 2010
+  - Aaron Swartz created a program that automatically downloaded
+    articles from JSTOR, an online library of academic literature,
+    which went against the policies of the site. In creating this
+    program, he used code to circumvent the restrictions to downloads
+    on the site.
+  - In 2011, a federal investigation was levied and, despite the fact
+    that JSTOR expressed a wish to not press criminal charges, Swartz
+    faced 13 federal charges and up to 50 years in prison.
+- Copyright
+  - Because U.S. copyright law does not protect facts or ideas (rather
+    they protect the original, creative expression of those ideas),
+    copyright protection of databases can be a little tricky.
+
+
+ICE article
+- read the article (5-10 minutes), taking some notes on what sticks out
+  to you.
+- respond to prompt (5-10 minutes)
+- discuss (10-20 minutes)
+
+#+begin_quote
+It’s unclear how exactly any contractor might sniff out someone’s
+“proclivity for violence.” The ICE document states only that the
+contractor will use “social and behavioral sciences” and
+“psychological profiles” to accomplish its automated threat detection.
+#+end_quote
+
+- How do you imagine they might achieve this goal of assessing
+  someone's "proclivity for violence"? What data would they have to
+  get, and how would they arrive to these conclusions from the data?
+  No wrong answers!
+- How do you think people might be able to avoid being tracked?
+  Suggest some ideas.
+
+**** BREAK
+**** web scraping with bs4 (1.30m)
+
+***** Crash course on bs4: NYT (50m)
 
 #+begin_src
 from bs4 import BeautifulSoup
@@ -26,7 +135,7 @@ import requests
 
 import lxml
 
-soup = BeautifulSoup(requests.get('https://www.theamericanconservative.com/').content, 'lxml')
+soup = BeautifulSoup(requests.get('https://nytimes.com').content, 'lxml')
 
 soup.title
 
@@ -58,15 +167,17 @@ titles
 
 ### challenge: use these tools to get the summary blurb for each article. 10-15 minutes & share.
 
+
+### turn it to a function!
+### write a function that scrapes all of the text from a
+### webapge. Make it so you can pass different URLs into the function, and
+### it will scrape a page for that URL. 
+
 #+end_src
 
-Challenge: write a function that scrapes all of the text from a
-webapge. Make it so you can pass different URLs into the function, and
-it will scrape a page for that URL. 
-
-Advanced challenge: how would I scrape the article text?
-hint: look at the URLs.
-- make a list of URLs for every page.
+Advanced challenge: go to one of the searches. How would you scrape
+the articles contained in the search results?
+hint: you'll have to make a lot of soups
 - write a loop that goes through each one.
 - turns that page into soup, grabs the article data, appends it to the
   list
@@ -74,11 +185,11 @@ hint: look at the URLs.
 Time to explore websites to scrape data from. Check if they are
 scrapable first. 
 
-**** (if time): freewrite/share
-- Brainstorm what kind of data you are interested in working with.
-  Look at some websites that may have that kind of data. Why are you
-  interested in this data?
-**** homework: find 2 scrapable sites
+***** practice doing the same with a chatbot (20m/20m)
+Use chatgpt or another chatbot of your choice to do the same as you
+just did. Did it work? Why or why not?
+  
+**** homework: find 2 scrapable sites and explain why
 Find 2 websites to scrape. Make sure if they are scrapable with bs4.
 Why are you interested in this data? What could you do with it?
 
