@@ -1,7 +1,7 @@
 import scrapy
 
 class GenderSpider(scrapy.Spider):
-    name = "gender"
+    name = "latest"
     start_urls = [
         "https://www.heritage.org/gender?f%5B0%5D=content_type%3Acommentary",
     ]

@@ -1,0 +1,54 @@
+# coding: utf-8
+response.css('title::text')
+response.css('title::text').get()
+response.css('h1.image-hero__headline::text').get()
+response.css('h1.image-hero__headline::text').get().strip()
+response.css('h4::text').get()
+response.css('h4.view-list--header::text').get()
+response.css('h4.view-list--header::text').getall()
+# get the headline, author, and link from each article
+# 1. write a loop that isolates the parent element which encapsulates all the information you want from the article
+# 2. isolate each element you want using .get()
+# get the headline, author, and link from each article
+'''
+# get the headline, author, and link from each article
+
+
+1. write a loop that isolates the parent element which encapsulates all the information you want from the article
+
+2. isolate each element you want using .get()
+'''
+for i in response.css("div.node__content::text"):
+    print(i.css('a::text'))
+for i in response.css("div.node__content::text"):
+    print(i.css('div a div h4::text'))
+for i in response.css("div.view-list--content-container::text"):
+    print(i)
+for i in response.css("div.view-list--content-container::text"):
+    print(i.css("h4::text).get())
+for i in response.css("div.view-list--content-container::text"):
+    print(i.css("h4::text").get())
+response.css("div.view-list--content-container::text")
+response.css("div.view-list--content-container::text").get()
+response.css("div.view-list--content-container::text").getall()
+for i in response.css("div.view-list--content-container::text"):
+    print(i.css("h4::text").get())
+for i in response.css("div.view-list--content-container"):
+    print(i.css("h4::text").get())
+for i in response.css("div.view-list--content-container"):
+    print(i.css("h4::text").get())
+    print(i.css("p.view-list--byline::text").get())
+'''
+To start a scrapy project & create a spider:
+1. run "scrapy startproject project_name" in the 
+command line
+2. copy and paste starter code from scrapy docs,
+on the "scrapy at a glance" page, paste into new
+python script
+3. save the python file to your project's "spiders" 
+folder
+4. on the script, change the variables and selectors 
+to match your project
+5. run the spider with the command:
+"spacy crawl spider_name"
+'''

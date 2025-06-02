@@ -1,0 +1,512 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<!-- 2025-06-02 Mon 09:49 -->
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>&lrm;</title>
+<meta name="author" content="fcalado" />
+<meta name="generator" content="Org Mode" />
+<style>
+  #content { max-width: 60em; margin: auto; }
+  .title  { text-align: center;
+             margin-bottom: .2em; }
+  .subtitle { text-align: center;
+              font-size: medium;
+              font-weight: bold;
+              margin-top:0; }
+  .todo   { font-family: monospace; color: red; }
+  .done   { font-family: monospace; color: green; }
+  .priority { font-family: monospace; color: orange; }
+  .tag    { background-color: #eee; font-family: monospace;
+            padding: 2px; font-size: 80%; font-weight: normal; }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .org-right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .org-left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .org-center { margin-left: auto; margin-right: auto; text-align: center; }
+  .underline { text-decoration: underline; }
+  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
+  p.verse { margin-left: 3%; }
+  pre {
+    border: 1px solid #e6e6e6;
+    border-radius: 3px;
+    background-color: #f2f2f2;
+    padding: 8pt;
+    font-family: monospace;
+    overflow: auto;
+    margin: 1.2em;
+  }
+  pre.src {
+    position: relative;
+    overflow: auto;
+  }
+  pre.src:before {
+    display: none;
+    position: absolute;
+    top: -8px;
+    right: 12px;
+    padding: 3px;
+    color: #555;
+    background-color: #f2f2f299;
+  }
+  pre.src:hover:before { display: inline; margin-top: 14px;}
+  /* Languages per Org manual */
+  pre.src-asymptote:before { content: 'Asymptote'; }
+  pre.src-awk:before { content: 'Awk'; }
+  pre.src-authinfo::before { content: 'Authinfo'; }
+  pre.src-C:before { content: 'C'; }
+  /* pre.src-C++ doesn't work in CSS */
+  pre.src-clojure:before { content: 'Clojure'; }
+  pre.src-css:before { content: 'CSS'; }
+  pre.src-D:before { content: 'D'; }
+  pre.src-ditaa:before { content: 'ditaa'; }
+  pre.src-dot:before { content: 'Graphviz'; }
+  pre.src-calc:before { content: 'Emacs Calc'; }
+  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+  pre.src-fortran:before { content: 'Fortran'; }
+  pre.src-gnuplot:before { content: 'gnuplot'; }
+  pre.src-haskell:before { content: 'Haskell'; }
+  pre.src-hledger:before { content: 'hledger'; }
+  pre.src-java:before { content: 'Java'; }
+  pre.src-js:before { content: 'Javascript'; }
+  pre.src-latex:before { content: 'LaTeX'; }
+  pre.src-ledger:before { content: 'Ledger'; }
+  pre.src-lisp:before { content: 'Lisp'; }
+  pre.src-lilypond:before { content: 'Lilypond'; }
+  pre.src-lua:before { content: 'Lua'; }
+  pre.src-matlab:before { content: 'MATLAB'; }
+  pre.src-mscgen:before { content: 'Mscgen'; }
+  pre.src-ocaml:before { content: 'Objective Caml'; }
+  pre.src-octave:before { content: 'Octave'; }
+  pre.src-org:before { content: 'Org mode'; }
+  pre.src-oz:before { content: 'OZ'; }
+  pre.src-plantuml:before { content: 'Plantuml'; }
+  pre.src-processing:before { content: 'Processing.js'; }
+  pre.src-python:before { content: 'Python'; }
+  pre.src-R:before { content: 'R'; }
+  pre.src-ruby:before { content: 'Ruby'; }
+  pre.src-sass:before { content: 'Sass'; }
+  pre.src-scheme:before { content: 'Scheme'; }
+  pre.src-screen:before { content: 'Gnu Screen'; }
+  pre.src-sed:before { content: 'Sed'; }
+  pre.src-sh:before { content: 'shell'; }
+  pre.src-sql:before { content: 'SQL'; }
+  pre.src-sqlite:before { content: 'SQLite'; }
+  /* additional languages in org.el's org-babel-load-languages alist */
+  pre.src-forth:before { content: 'Forth'; }
+  pre.src-io:before { content: 'IO'; }
+  pre.src-J:before { content: 'J'; }
+  pre.src-makefile:before { content: 'Makefile'; }
+  pre.src-maxima:before { content: 'Maxima'; }
+  pre.src-perl:before { content: 'Perl'; }
+  pre.src-picolisp:before { content: 'Pico Lisp'; }
+  pre.src-scala:before { content: 'Scala'; }
+  pre.src-shell:before { content: 'Shell Script'; }
+  pre.src-ebnf2ps:before { content: 'ebfn2ps'; }
+  /* additional language identifiers per "defun org-babel-execute"
+       in ob-*.el */
+  pre.src-cpp:before  { content: 'C++'; }
+  pre.src-abc:before  { content: 'ABC'; }
+  pre.src-coq:before  { content: 'Coq'; }
+  pre.src-groovy:before  { content: 'Groovy'; }
+  /* additional language identifiers from org-babel-shell-names in
+     ob-shell.el: ob-shell is the only babel language using a lambda to put
+     the execution function name together. */
+  pre.src-bash:before  { content: 'bash'; }
+  pre.src-csh:before  { content: 'csh'; }
+  pre.src-ash:before  { content: 'ash'; }
+  pre.src-dash:before  { content: 'dash'; }
+  pre.src-ksh:before  { content: 'ksh'; }
+  pre.src-mksh:before  { content: 'mksh'; }
+  pre.src-posh:before  { content: 'posh'; }
+  /* Additional Emacs modes also supported by the LaTeX listings package */
+  pre.src-ada:before { content: 'Ada'; }
+  pre.src-asm:before { content: 'Assembler'; }
+  pre.src-caml:before { content: 'Caml'; }
+  pre.src-delphi:before { content: 'Delphi'; }
+  pre.src-html:before { content: 'HTML'; }
+  pre.src-idl:before { content: 'IDL'; }
+  pre.src-mercury:before { content: 'Mercury'; }
+  pre.src-metapost:before { content: 'MetaPost'; }
+  pre.src-modula-2:before { content: 'Modula-2'; }
+  pre.src-pascal:before { content: 'Pascal'; }
+  pre.src-ps:before { content: 'PostScript'; }
+  pre.src-prolog:before { content: 'Prolog'; }
+  pre.src-simula:before { content: 'Simula'; }
+  pre.src-tcl:before { content: 'tcl'; }
+  pre.src-tex:before { content: 'TeX'; }
+  pre.src-plain-tex:before { content: 'Plain TeX'; }
+  pre.src-verilog:before { content: 'Verilog'; }
+  pre.src-vhdl:before { content: 'VHDL'; }
+  pre.src-xml:before { content: 'XML'; }
+  pre.src-nxml:before { content: 'XML'; }
+  /* add a generic configuration mode; LaTeX export needs an additional
+     (add-to-list 'org-latex-listings-langs '(conf " ")) in .emacs */
+  pre.src-conf:before { content: 'Configuration File'; }
+
+  table { border-collapse:collapse; }
+  caption.t-above { caption-side: top; }
+  caption.t-bottom { caption-side: bottom; }
+  td, th { vertical-align:top;  }
+  th.org-right  { text-align: center;  }
+  th.org-left   { text-align: center;   }
+  th.org-center { text-align: center; }
+  td.org-right  { text-align: right;  }
+  td.org-left   { text-align: left;   }
+  td.org-center { text-align: center; }
+  dt { font-weight: bold; }
+  .footpara { display: inline; }
+  .footdef  { margin-bottom: 1em; }
+  .figure { padding: 1em; }
+  .figure p { text-align: center; }
+  .equation-container {
+    display: table;
+    text-align: center;
+    width: 100%;
+  }
+  .equation {
+    vertical-align: middle;
+  }
+  .equation-label {
+    display: table-cell;
+    text-align: right;
+    vertical-align: middle;
+  }
+  .inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
+    background: #ffffcc;
+  }
+  #org-div-home-and-up
+   { text-align: right; font-size: 70%; white-space: nowrap; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size: smaller }
+  .code-highlighted { background-color: #ffff00; }
+  .org-info-js_info-navigation { border-style: none; }
+  #org-info-js_console-label
+    { font-size: 10px; font-weight: bold; white-space: nowrap; }
+  .org-info-js_search-highlight
+    { background-color: #ffff00; color: #000000; font-weight: bold; }
+  .org-svg { }
+</style>
+</head>
+<body>
+<div id="content" class="content">
+<div id="table-of-contents" role="doc-toc">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents" role="doc-toc">
+<ul>
+<li><a href="#org6af3106">1. June 2, session 2: scrapy &amp; the scrapy shell</a>
+<ul>
+<li><a href="#org5b1b2ee">1.1. share websites that you found</a></li>
+<li><a href="#orgef84523">1.2. introduction to scrapy shell</a>
+<ul>
+<li><a href="#orgd4b6078">1.2.1. setting up environment</a></li>
+<li><a href="#org49c5028">1.2.2. Extracting data with css selectors</a></li>
+<li><a href="#orgfa04a55">1.2.3. narrowing down our content</a></li>
+</ul>
+</li>
+<li><a href="#org7c89e0e">1.3. scrapy project</a>
+<ul>
+<li><a href="#org758912c">1.3.1. starting new scrapy project</a></li>
+<li><a href="#org54275ec">1.3.2. run a spider!</a></li>
+</ul>
+</li>
+<li><a href="#org51120ff">1.4. (if time) explore a website you're interested in to get selectors</a></li>
+<li><a href="#org53426f3">1.5. BREAK</a></li>
+<li><a href="#orgb377ced">1.6. crawling a webpage</a></li>
+<li><a href="#org67228fd">1.7. (if time) individual activity: apply code to website from homework</a></li>
+<li><a href="#orga3a8fa9">1.8. introduce book, read introduction together, discuss</a></li>
+<li><a href="#orgd6f2856">1.9. homework: reading response <i>Compost Engineers</i> chapters 1 &amp; 2</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<div id="outline-container-org6af3106" class="outline-2">
+<h2 id="org6af3106"><span class="section-number-2">1.</span> June 2, session 2: scrapy &amp; the scrapy shell</h2>
+<div class="outline-text-2" id="text-1">
+</div>
+<div id="outline-container-org5b1b2ee" class="outline-3">
+<h3 id="org5b1b2ee"><span class="section-number-3">1.1.</span> share websites that you found</h3>
+</div>
+<div id="outline-container-orgef84523" class="outline-3">
+<h3 id="orgef84523"><span class="section-number-3">1.2.</span> introduction to scrapy shell</h3>
+<div class="outline-text-3" id="text-1-2">
+</div>
+<div id="outline-container-orgd4b6078" class="outline-4">
+<h4 id="orgd4b6078"><span class="section-number-4">1.2.1.</span> setting up environment</h4>
+<div class="outline-text-4" id="text-1-2-1">
+<p>
+Download and install scrapy. <a href="https://docs.scrapy.org/en/latest/intro/install.html#intro-install">Troubleshooting installtions</a>.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-console">conda install -c conda-forge scrapy
+pip install Scrapy
+</pre>
+</div>
+
+<p>
+Introduction to scrapy shell
+</p>
+
+<div class="org-src-container">
+<pre class="src src-console">scrapy shell 'https://quotes.toscrape.com/page/1/'
+response.css("title::text").get()
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org49c5028" class="outline-4">
+<h4 id="org49c5028"><span class="section-number-4">1.2.2.</span> <a href="https://docs.scrapy.org/en/latest/intro/tutorial.html#extracting-data">Extracting data</a> with css selectors</h4>
+<div class="outline-text-4" id="text-1-2-2">
+<p>
+Syntax:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-python"># basic syntax for using element to get text
+# returns the entire element
+response.css("element::text")
+
+# getting the title elements
+response.css("title::text")
+
+# use dot to get classes
+# getting the quote elements
+response.css("span.text::text")
+
+# combine with get() to get just the text
+response.css("title::text").get()
+
+# and just the first instance
+response.css("span.text::text").get()
+
+# or with getall() to get a list
+response.css("span.text::text").getall()
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgfa04a55" class="outline-4">
+<h4 id="orgfa04a55"><span class="section-number-4">1.2.3.</span> narrowing down our content</h4>
+<div class="outline-text-4" id="text-1-2-3">
+<ul class="org-ul">
+<li>write a loop that prints out the elements that we want
+<ul class="org-ul">
+<li>looping through a subset of the page</li>
+<li>using the print function</li>
+<li>you will have to expand this loop to add author and links</li>
+</ul></li>
+</ul>
+
+<div class="org-src-container">
+<pre class="src src-python"># first just looping through to print
+for i in response.css('div.view-list--content-container'):
+    print(i.css('h4::text').get())
+</pre>
+</div>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org7c89e0e" class="outline-3">
+<h3 id="org7c89e0e"><span class="section-number-3">1.3.</span> scrapy project</h3>
+<div class="outline-text-3" id="text-1-3">
+</div>
+<div id="outline-container-org758912c" class="outline-4">
+<h4 id="org758912c"><span class="section-number-4">1.3.1.</span> starting new scrapy project</h4>
+<div class="outline-text-4" id="text-1-3-1">
+<p>
+Install VS Code
+</p>
+
+<p>
+Following tutorial on scrapy's <a href="https://docs.scrapy.org/en/latest/intro/tutorial.html">tutorial in the docs</a>:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-console"># create your Scrapy project:
+scrapy startproject project_name
+cd project_name
+
+# see the directory structure
+tree
+</pre>
+</div>
+
+<p>
+Create new spider manually (copy/paste code from <a href="https://docs.scrapy.org/en/latest/intro/tutorial.html#extracting-data-in-our-spider">extracting data in
+our spider</a>).
+</p>
+</div>
+</div>
+
+<div id="outline-container-org54275ec" class="outline-4">
+<h4 id="org54275ec"><span class="section-number-4">1.3.2.</span> run a spider!</h4>
+<div class="outline-text-4" id="text-1-3-2">
+<p>
+Insert your own variables and selectors.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-python">
+import scrapy
+
+class LatestSpider(scrapy.Spider):
+    name = "latest"
+    start_urls = [
+        "https://www.heritage.org/",
+    ]
+
+    def parse(self, response):
+        for i in response.css("div.view-list--content-container"):
+            yield {
+                "title": i.css('h4::text').get(),
+            }
+
+</pre>
+</div>
+
+<p>
+Classes:
+</p>
+<ul class="org-ul">
+<li>classes are like templates, which you can customize.
+<ul class="org-ul">
+<li>building from a base c</li>
+<li>contain properties and functions.</li>
+</ul></li>
+<li><code>LatestSpider</code> class builds on the <code>Spider</code> class.</li>
+<li>check out the <a href="https://docs.scrapy.org/en/latest/topics/spiders.html">Spider class in the docs</a>.</li>
+</ul>
+
+<p>
+Run the spider:
+</p>
+
+<p>
+<code>scrapy crawl latest</code>
+</p>
+
+<p>
+Then store the scraped data:
+</p>
+
+<p>
+<code>scrapy crawl quotes -o latest.json</code>
+</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org51120ff" class="outline-3">
+<h3 id="org51120ff"><span class="section-number-3">1.4.</span> (if time) explore a website you're interested in to get selectors</h3>
+</div>
+<div id="outline-container-org53426f3" class="outline-3">
+<h3 id="org53426f3"><span class="section-number-3">1.5.</span> BREAK</h3>
+</div>
+<div id="outline-container-orgb377ced" class="outline-3">
+<h3 id="orgb377ced"><span class="section-number-3">1.6.</span> crawling a webpage</h3>
+<div class="outline-text-3" id="text-1-6">
+<p>
+We are going to crawl the results of the "gender" topic on the
+Heritage website.
+</p>
+
+
+<p>
+In the spiders/ directory, create a new file called
+<code>gender_commentary.py</code>. Copy and paste the above code, which we will
+change.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-python">
+import scrapy
+
+# change the class, name, and url of the spider
+class GenderSpider(scrapy.Spider):
+    name = "gender"
+    start_urls = [
+        "https://www.heritage.org/gender?f%5B0%5D=content_type%3Acommentary",
+    ]
+
+    # callback function - is called automatically when you invoke the spider
+    def parse(self, response):
+
+        # list of page links
+        article_page_links = response.css("div.result-card__info-wrapper a::attr('href')")
+        yield from response.follow_all(article_page_links, self.parse_article)
+
+    def parse_article(self, response):
+        yield {
+            'title': response.css('h1.headline::text').get(),
+            'takeaways':response.css('div.key-takeaways__takeaway p::text').getall(),
+            'text': response.css('div.article__body-copy div p::text').getall()
+        }
+
+</pre>
+</div>
+
+<p>
+Need to find:
+</p>
+<ul class="org-ul">
+<li>the links to the articles, combine with attr('href') selector</li>
+<li>on each article page, the elements we want to scrape (title,
+takeawaks, text)</li>
+<li>yield and yield from allows you to iterate over items and functions
+more effciently than loops</li>
+</ul>
+
+<p>
+<code>scrapy crawl gender</code>
+</p>
+
+<p>
+<code>scrapy crawl gender -o gender_articles.json</code>
+</p>
+</div>
+</div>
+
+<div id="outline-container-org67228fd" class="outline-3">
+<h3 id="org67228fd"><span class="section-number-3">1.7.</span> (if time) individual activity: apply code to website from homework</h3>
+</div>
+
+<div id="outline-container-orga3a8fa9" class="outline-3">
+<h3 id="orga3a8fa9"><span class="section-number-3">1.8.</span> introduce book, read introduction together, discuss</h3>
+</div>
+<div id="outline-container-orgd6f2856" class="outline-3">
+<h3 id="orgd6f2856"><span class="section-number-3">1.9.</span> homework: reading response <i>Compost Engineers</i> chapters 1 &amp; 2</h3>
+<div class="outline-text-3" id="text-1-9">
+<p>
+Joana Varon and Lucía Egaña Rojas. Chapters 1 &amp; 2 from <i>Compost
+Engineers and Sus Saberes Lentos: A Manifest for Regenerative
+Technologies</i>. Coding Rights, 2024,
+<a href="https://codingrights.org/docs/compost_engineers.pdf">https://codingrights.org/docs/compost_engineers.pdf</a>.
+</p>
+
+<p>
+Prompt: Pick an idea from the reading that interests you (either
+because you agree with it, disagree with it, or are otherwise provoked
+by it) and explain why.
+</p>
+</div>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<p class="author">Author: fcalado</p>
+<p class="date">Created: 2025-06-02 Mon 09:49</p>
+<p class="validation"><a href="https://validator.w3.org/check?uri=referer">Validate</a></p>
+</div>
+</body>
+</html>
