@@ -1,4 +1,4 @@
-# Scrapy settings for scrapy_tutorial project
+# Scrapy settings for heritage_scraper project
 #
 # For simplicity, this file contains only settings considered important or
 # commonly used. You can find more settings consulting the documentation:
@@ -7,14 +7,14 @@
 #     https://docs.scrapy.org/en/latest/topics/downloader-middleware.html
 #     https://docs.scrapy.org/en/latest/topics/spider-middleware.html
 
-BOT_NAME = "scrapy_tutorial"
+BOT_NAME = "heritage_scraper"
 
-SPIDER_MODULES = ["scrapy_tutorial.spiders"]
-NEWSPIDER_MODULE = "scrapy_tutorial.spiders"
+SPIDER_MODULES = ["heritage_scraper.spiders"]
+NEWSPIDER_MODULE = "heritage_scraper.spiders"
 
 
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
-#USER_AGENT = "scrapy_tutorial (+http://www.yourdomain.com)"
+#USER_AGENT = "heritage_scraper (+http://www.yourdomain.com)"
 
 # Obey robots.txt rules
 ROBOTSTXT_OBEY = True
@@ -45,13 +45,13 @@ ROBOTSTXT_OBEY = True
 # Enable or disable spider middlewares
 # See https://docs.scrapy.org/en/latest/topics/spider-middleware.html
 #SPIDER_MIDDLEWARES = {
-#    "scrapy_tutorial.middlewares.ScrapyTutorialSpiderMiddleware": 543,
+#    "heritage_scraper.middlewares.HeritageScraperSpiderMiddleware": 543,
 #}
 
 # Enable or disable downloader middlewares
 # See https://docs.scrapy.org/en/latest/topics/downloader-middleware.html
 #DOWNLOADER_MIDDLEWARES = {
-#    "scrapy_tutorial.middlewares.ScrapyTutorialDownloaderMiddleware": 543,
+#    "heritage_scraper.middlewares.HeritageScraperDownloaderMiddleware": 543,
 #}
 
 # Enable or disable extensions
@@ -63,7 +63,7 @@ ROBOTSTXT_OBEY = True
 # Configure item pipelines
 # See https://docs.scrapy.org/en/latest/topics/item-pipeline.html
 #ITEM_PIPELINES = {
-#    "scrapy_tutorial.pipelines.ScrapyTutorialPipeline": 300,
+#    "heritage_scraper.pipelines.HeritageScraperPipeline": 300,
 #}
 
 # Enable and configure the AutoThrottle extension (disabled by default)

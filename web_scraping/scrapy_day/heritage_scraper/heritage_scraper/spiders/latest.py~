@@ -1,0 +1,18 @@
+import scrapy
+
+class LatestSpider(scrapy.Spider):
+    name = "latest"
+    start_urls = [
+        "https://www.heritage.org/gender",
+    ]
+
+    def parse(self, response):
+        for i in response.css("div.result-card__info-wrapper"):
+            yield {
+                "title": i.css('a::text').get(),
+            }
+
+        next_page = response.css("div.result-card__info-wrapper a::attr(href)").getall()
+        if next_page is not None:
+            next_page = response.urljoin(next_page)
+            yield scrapy.Request(next_page, callback=self.parse)
