@@ -367,98 +367,223 @@ Prompt: Pick an idea from the reading that interests you (either
 because you agree with it, disagree with it, or are otherwise provoked
 by it) and explain why.
 
-*** June 5, session 3: blockers & XHR
+*** June 5, session 3: scrapy continued & XHR
 **** share homework, discuss reading
-**** scraping XHR
-[[https://scrapism.lav.io/scraping-xhr/][Tutorial by Sam Lavigne]] on scraping Bing and Customs Border
-Protection.
 
-***** Exploring XHR from the command line
+Joana Varon & Lucia Egana, /The compost engineers and/sus saberes
+lentos:a manifest for regenerative technologies/, Coding Rights, 2024.
 
-#+begin_src python
-from bs4 import BeautifulSoup
-import requests
+Main ideas:
+- the term "artificial intelligence" carries with it an imaginary that
+  is shaped by war, colonialism, and patriarchy.
+  - patriarchial ideas of domination.
+  - colonialism: the englightenment principles of man as a rational
+    animal supported and justified expansion and conquest over
+    "primitive" peoples and lands.
+    - Civilized vs primitive, master vs servant, and other dichotomies.
+    - fantasies of discovery and appropriation. 
+    - extend into today with the idea of the AI being something that
+      can serve us, that we should dominate, but that can also
+      dominate us.
+- the tech pratices we have now are descendant from these imaginaries:
+  of colonialism and patriarchy, they are influenced and materialized
+  by them.
+  - extrativist technology
+    - what counts as "open" (for taking)
+  - socio-environmental harm
+  - the cloud as dematerialized
+  - labor as dematerialized
+  - universalizing the white male subject
+  - efficiency above all, what counts as the "cost"
+  - idea of progress over time, positivism vs intuitive knowlege
+- How can we bring back AI technology and use it as tools, not
+  solutions? (30)
+  - "constitutive outside" - the outside of an idea that defines the
+    idea. 
 
-query = "how can i"
+**** practice time with scrapy
+Walk through script for crawling articles based on "gender" in
+"commentary" filter.
 
-url = (
-    "https://www.bing.com/AS/Suggestions?pt=page.home&mkt=en-us&qry="
-    + query
-    + "&cp=9&csr=1&msbqf=false&pths=1&cvid=6AE710F2D778431589574CB8424EFF70"
-)
-
-response = requests.get(url)
-
-response
-dir(response)
-response.text
-response.content
-response.json()
-
-parsed = response.json()
-
-# what kind of data structure?
-# pull out the completions
-parsed
-parsed['s'][0]
-parsed['s'][0]['q']
-parsed['s'][1]['q']
-parsed['s'][2]['q']
-
-# write a loop that prints just the completions
-for item in parsed['s']:
-    print(item['q'])
-#+end_src
-
-***** Script for scraping XHR results.
-- how & why to create a script
-- how & why to write a function
-
-Run the below. Pipe output through sort -u to sort the output of our
-script and filter out duplicates.
-
-#+begin_src console
-  python bing_autocomplete.py | sort -u
-#+end_src
+Note:
+- how the start URL is formatted
+- how the two functions are doing different things
+- how they are calling each other from within the function
 
 #+begin_src python
-from bs4 import BeautifulSoup
-import requests
+import scrapy
 
-def auto_complete(query):
-  url = (
-      "https://www.bing.com/AS/Suggestions?pt=page.home&mkt=en-us&qry="
-      + query
-      + "&cp=10&cvid=B8D86CB090A240A196E4867715E40B15"
-  )
-  response = requests.get(url)
-  soup = BeautifulSoup(response.text, "html.parser")
-  items = soup.select("li")
-  for item in items:
-      print(item.text)
+class GenderSpider(scrapy.Spider):
+    name = "gender"
+    start_urls = [
+        "https://www.heritage.org/gender?f%5B0%5D=content_type%3Acommentary",
+    ]
 
-base_query = "How can I "
-for letter in "abcdefghijklmnopqrstuvwxyz":
-    auto_complete(base_query + letter)
-    for letter2 in "abcdefghijklmnopqrstuvwxyz":
-        auto_complete(base_query + letter + letter2)
-  
+    def parse(self, response):
+        article_page_links = response.css("div.result-card__info-wrapper a::attr('href')")
+        yield from response.follow_all(article_page_links, self.parse_article)
+
+        next_page = response.css('li.pager__item a::attr("href")').get()
+        if next_page is not None:
+            yield response.follow(next_page, self.parse)
+
+    def parse_article(self, response):
+        yield {
+            'title': response.css('h1.headline::text').get(),
+            'takeaways':response.css('div.key-takeaways__takeaway p::text').getall(),
+            'text': response.css('div.article__body-copy div p::text').getall()
+        }
+
 #+end_src
-**** (if time) guided practice: finding undocumented APIs
+
+**** BREAK
+**** finding undocumented APIs
 Yin, Leon. Finding Undocumented APIs. 24 Feb. 2023,
 https://inspectelement.org/apis.html#tutorial.
 
-Uses developer tools to reverse engineer google searches to examine
-autocomplete results. 
+What is an API? A way for you to get data from a source.
+- An application that holds and distributes the data you want.
+- A language for interacting with that particular application
 
-**** BREAK
-**** individual activity: explore how to bypass blockers
-Try out some of these strategies: 
-- [[https://scrapeops.io/web-scraping-playbook/403-forbidden-error-web-scraping/][How To Solve 403 Forbidden Errors When Web Scraping]]
-- [[https://www.zenrows.com/blog/bypass-cloudflare-python][How to Bypass Cloudflare in Python]]
-- [[https://www.zenrows.com/blog/curl-bypass-cloudflare#set-real-http-headers][4 Methods to Bypass Cloudflare with cURL in 2025]]
+Documented vs undocumented APIs
+- documented APIs: the MET API, for example.
+- undocumented: no documentation. They operate under the hood,
+  grabbing data to populate websites.
 
-**** share what we've found
+Undocumented APIs do not engage with the web page, the HTML. They
+engage with the network, with the request being made over the network.
+- they are the middle man, fulfilling requests from the code (usually
+  javascript) to get data for the page.
+
+***** XHR tutorial
+
+We'll see how Amazon.com autocomplete search suggestions work.
+
+We will scrape Amazon search results by reverse-engineering how
+requests are made, and use it to collect structured data at scale.
+
+****** 1. First open the developer console.
+
+See how on Chrome or Firefox here.
+
+One way to get to the dev tools it to right-click and “Inspect” an
+element on the page.
+
+****** 2. Click the “Network” tab.
+
+This section of the dev tools is used to monitor network requests.
+
+Everything on a page is retrieved from some outside source, likely a
+server. This includes things like images embedded on the page,
+JavaScript code running in the background, and all the bits of
+“content” that populate the page before us.
+
+Using the Network tab, we can find out how this information is
+requested from a server, and intercept the response before it is
+rendered on the page.
+
+****** 3. Filter requests by fetch/XHR
+
+This will reveal only API calls made to servers. This includes
+internal servers that are hosted by the website we’re inspecting, as
+well as external servers. The latter often includes third-party
+trackers used in adtech, and verification services to authenticate
+user behavior.
+
+You might see quite a few network requests that were loaded onto the
+page. Look at "Domain" to narrow down where requests were sent, and
+whether the names are telling of the purpose of the request. In this
+example, notice that a request was sent to the "Domain"
+completion.amazon.com.
+
+Look at the request's "Response" attributes.
+
+****** 4. Copy as cURL
+
+If you find an HTTP request that returns a response with useful
+information you can start to reverse-engineer it. To do that, we can
+isolate it by right-clicking the HTTP request and selecting “copy as
+cURL”. (cURL stands for client URL, and is a tool used to transfer
+data across networks.)
+
+You can paste this directly in your command line. Or, you can convert
+it to python to run as a script. 
+
+****** 5. Curl to requests
+
+We can use a site like curlconverter.com to convert the cURL we copied
+into a reusable API call. In this example, we use the default
+conversion to a Python requests script. You can do the same for any
+language and framework.
+
+Here is what the converted cURL looks like after being converted to a
+Python request:
+
+****** 6. copy and paste one by one into a notebook, run it
+
+****** 7. port to a function
+
+#+begin_src python
+import pandas as pd
+import time
+
+def search_suggestions(keyword):
+    """
+    Get autocompleted search suggestions for a `keyword` search on Amazon.com.
+    """
+    headers = {
+        'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:100.0) Gecko/20100101 Firefox/100.0',
+        'Accept': 'application/json, text/javascript, */*; q=0.01',
+        'Accept-Language': 'en-US,en;q=0.5',
+    }
+
+    params = {
+        'prefix': keyword,
+        'suggestion-type': [
+            'WIDGET',
+            'KEYWORD',
+        ],
+        'alias': 'aps',
+        'plain-mid': '1',
+    }
+
+    response = requests.get('https://completion.amazon.com/api/2017/suggestions',
+                            params=params, headers=headers)
+    return response.json()
+#+end_src
+
+#+begin_src python
+  search_suggestions('maga')
+#+end_src
+
+****** 8. Iterate through different searches, save to DF
+
+Here we can set new input parameters in keyword, and make the an API
+call using each keyword. Try changing some of the code (eg. the
+keywords) and rerunning it to check your understanding.
+
+#+begin_src python
+    # Here are our inputs (what searches we'll get autocompleted)
+  keywords = [
+      'a', 'b', 'cookie', 'sock', 'zelda', '12'
+  ]
+
+  # Here we'll go through each input, get the suggestions, and then add the `suggestions` to a list.
+  data = []
+  for keyword in keywords:
+      suggestions = search_suggestions(keyword)
+      suggestions['search_word'] = keyword # keep track of the seed keyword
+      time.sleep(1) # best practice to put some time between API calls.
+      data.extend(suggestions['suggestions'])
+#+end_src
+
+See the results by looping through the "value" key
+
+#+begin_src python
+  for i in data:
+      print(i['value'])
+#+end_src
+
 **** homework: /Compost Engineers/ chapters 3 & 4
 Joana Varon and Lucía Egaña Rojas. Chapters 3 & 4 from /Compost
 Engineers and Sus Saberes Lentos: A Manifest for Regenerative
@@ -851,3 +976,85 @@ pass: supersecure
 - mini conferences
 *** (online) July 7, final project presentations
 - presentations
+** bank
+**** scraping XHR
+[[https://scrapism.lav.io/scraping-xhr/][Tutorial by Sam Lavigne]] on scraping Bing and Customs Border
+Protection.
+
+***** Exploring XHR from the command line
+
+#+begin_src python
+from bs4 import BeautifulSoup
+import requests
+
+query = "how can i"
+
+url = (
+    "https://www.bing.com/AS/Suggestions?pt=page.home&mkt=en-us&qry="
+    + query
+    + "&cp=9&csr=1&msbqf=false&pths=1&cvid=6AE710F2D778431589574CB8424EFF70"
+)
+
+response = requests.get(url)
+
+response
+dir(response)
+response.text
+response.content
+response.json()
+
+parsed = response.json()
+
+# what kind of data structure?
+# pull out the completions
+parsed
+parsed['s'][0]
+parsed['s'][0]['q']
+parsed['s'][1]['q']
+parsed['s'][2]['q']
+
+# write a loop that prints just the completions
+for item in parsed['s']:
+    print(item['q'])
+#+end_src
+
+***** Script for scraping XHR results.
+- how & why to create a script
+- how & why to write a function
+
+Run the below. Pipe output through sort -u to sort the output of our
+script and filter out duplicates.
+
+#+begin_src console
+  python bing_autocomplete.py | sort -u
+#+end_src
+
+#+begin_src python
+from bs4 import BeautifulSoup
+import requests
+
+def auto_complete(query):
+  url = (
+      "https://www.bing.com/AS/Suggestions?pt=page.home&mkt=en-us&qry="
+      + query
+      + "&cp=10&cvid=B8D86CB090A240A196E4867715E40B15"
+  )
+  response = requests.get(url)
+  soup = BeautifulSoup(response.text, "html.parser")
+  items = soup.select("li")
+  for item in items:
+      print(item.text)
+
+base_query = "How can I "
+for letter in "abcdefghijklmnopqrstuvwxyz":
+    auto_complete(base_query + letter)
+    for letter2 in "abcdefghijklmnopqrstuvwxyz":
+        auto_complete(base_query + letter + letter2)
+  
+#+end_src
+
+**** individual activity: explore how to bypass blockers
+Try out some of these strategies: 
+- [[https://scrapeops.io/web-scraping-playbook/403-forbidden-error-web-scraping/][How To Solve 403 Forbidden Errors When Web Scraping]]
+- [[https://www.zenrows.com/blog/bypass-cloudflare-python][How to Bypass Cloudflare in Python]]
+- [[https://www.zenrows.com/blog/curl-bypass-cloudflare#set-real-http-headers][4 Methods to Bypass Cloudflare with cURL in 2025]]

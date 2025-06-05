@@ -1,5 +1,14 @@
 ### class notes, intro to scrapy shell & starting spider
 
+### websites to scrape:
+# http://www.tm-research-archive.ch/
+# https://hiring.cafe/
+# https://lu.ma/user/accentaccent
+# https://www.literature-map.com/
+# https://www.theinfatuation.com
+# https://plato.stanford.edu/
+
+
 ### to open a scrapy shell, type "scrapy shell 'https:your_url.com'"
 ### into the command line.
 
