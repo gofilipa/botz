@@ -1,5 +1,5 @@
 * course schedule
-** unit 1 web crawling bots - 2 weeks
+** unit 1 web crawling bots - 2.5 weeks
 *** May 29, session 1: intro to Python & web scraping with bs4
 **** syllabus & python installations (15m)
 - check if python is 3+, ideally 3.9+
@@ -367,7 +367,7 @@ Prompt: Pick an idea from the reading that interests you (either
 because you agree with it, disagree with it, or are otherwise provoked
 by it) and explain why.
 
-*** June 5, session 3: scrapy continued & XHR
+*** June 5, session 3: scrapy continued
 **** share homework, discuss reading
 
 Joana Varon & Lucia Egana, /The compost engineers and/sus saberes
@@ -437,6 +437,32 @@ class GenderSpider(scrapy.Spider):
 #+end_src
 
 **** BREAK
+**** pratice & 1:1s
+**** homework: /Compost Engineers/ chapters 3 & 4
+Joana Varon and Lucía Egaña Rojas. Chapters 3 & 4 from /Compost
+Engineers and Sus Saberes Lentos: A Manifest for Regenerative
+Technologies/. Coding Rights, 2024,
+https://codingrights.org/docs/compost_engineers.pdf.
+
+Prompt: From the authors' proposals, what do you find useful or
+surprising, and what do you have doubts about?
+
+*** June 9, session 4: XHR
+**** share homework, discuss reading
+Where does the book end up? What's the proposal?
+
+A proposal for a garden being cultivated according to certain
+principles:
+- ecological principles, indigenous studies principles, feminist
+  principles.
+  - /The Mushroom at the End of the world/
+- symbiosis, regeneration, non-prioritizing of the human,
+  contamination. 
+
+The idea is that there is knowledge in the cultivating of a garden
+that they can learn and apply to digital tools.
+- the idea of "knowledge" vs "intelligence". 
+
 **** finding undocumented APIs
 Yin, Leon. Finding Undocumented APIs. 24 Feb. 2023,
 https://inspectelement.org/apis.html#tutorial.
@@ -454,6 +480,13 @@ Undocumented APIs do not engage with the web page, the HTML. They
 engage with the network, with the request being made over the network.
 - they are the middle man, fulfilling requests from the code (usually
   javascript) to get data for the page.
+ 
+***** the MET API (review)
+- the anatomy of a request
+  - root, path, query
+- the response object
+  - parse into json
+  - dictionary syntax for accessing elements
 
 ***** XHR tutorial
 
@@ -584,17 +617,87 @@ See the results by looping through the "value" key
       print(i['value'])
 #+end_src
 
-**** homework: /Compost Engineers/ chapters 3 & 4
-Joana Varon and Lucía Egaña Rojas. Chapters 3 & 4 from /Compost
-Engineers and Sus Saberes Lentos: A Manifest for Regenerative
-Technologies/. Coding Rights, 2024,
-https://codingrights.org/docs/compost_engineers.pdf.
+**** BREAK
+**** individual practice & 1:1 
+**** assignment (due June 19): analog tracking
 
-Prompt: From the authors' proposals, what do you find useful or
-surprising, and what do you have doubts about?
+# Analog Tracking Assignment
 
-*** June 9, session 4: selenium
-**** share homework, discuss reading
+**Due**: June 19, 2025
+**Length**: raw data log, & 1–2 pages of reflection 
+
+## Overview
+
+To create some context for building automated bots, you'll first
+collect data the old-fashioned way—by hand, with your own attention as
+the primary tool.
+
+For this assignment, choose one real-world subject to observe
+repeatedly over **5 days**. Try to chose days that are as close to
+consecutive as possible, and as similar time each day as possible (for
+example, Monday - Friday everyday at ~9am).
+
+Your subject can be anything that changes over time: your meals, a
+tree, a bus stop, a garden or park, etc. You can get creative, you can
+be political, or you can be super simple. The goal is to practice
+**systematic observation**, notice patterns, and reflect on the
+experience of **manual data collection**.
+
+You’ll keep a short daily journal and submit both your **raw
+observations** and a **1–2 page reflection** on the experience.
+
+---
+
+## What to Do Each Day
+
+Spend at least **10 minutes** each day observing your subject. As you
+are doing so, answer the following prompts in a notebook or digital
+doc:
+
+1. Day
+2. Time
+3. Location
+4. Observations
+5. Feelings/Thoughts
+6. Misc. Notes
+7. (Optional) Include a photo, sketch, or visual note.
+
+Feel free to add any categories that pertain to your specific case.
+For example, (if you decided to get political) and are observing a
+protest/strike, you can note the number of strikers or protesters that
+day.
+
+## Final Submission Instructions (due June 19th)
+
+Compile a packet (in PDF format) that includes the following documents:
+
+- Your daily tracking journal (ideally in a table format, but can also
+  be bulleted list)
+- A 1–2 page reflection answering:
+  - What patterns did you see?
+  - How did your tracking methods evolve?
+  - What choices are you making about what counts as "data"? Why?
+  - What would be easy or hard to automate about this process?
+
+---
+
+## Example Project: *Tree Watch*
+
+**Subject**: A cherry blossom tree near my apartment  
+**Location**: Riverside Park, NYC  
+**Timeframe**: March 24–28, 10–10:15am daily
+
+| Day | Time    | Location        | Observations                                   | Feelings/Thoughts                        | Misc. Notes                     |
+|-----|---------|------------------|------------------------------------------------|------------------------------------------|----------------------------------|
+| 1   | 10:00am | Riverside Park   | Buds just starting to open, ~3 visible         | Calm; surprised by how early bloom starts | Cloudy, ~48°F                    |
+| 2   | 10:10am | Riverside Park   | 7–10 small flowers open; jogger passed by      | Focused; felt invisible while observing   | Took photo for reference         |
+| 3   | 10:00am | Riverside Park   | 12+ flowers open; lots of bees around          | Curious; noticed sound of bees            | Warm and sunny (~61°F)           |
+| 4   | 10:05am | Riverside Park   | Petals damp, a few fallen; no bees             | Dreary; hard to feel motivated            | Light rain; few people outside   |
+| 5   | 10:15am | Riverside Park   | Many petals blown off; almost bare branches    | Bit sad; felt season change more deeply   | Kids nearby called it “snow”     |
+
+---
+
+*** June 12, session 5: selenium
 **** introduction to selenium
 
 Install selenium
@@ -651,45 +754,30 @@ len(cards)
 ### each item that we want?
 
 #+end_src
+**** assignment (due June 16): dataset proposal
+What is the dataset you'd like to create for your final project? Where
+would you get the data, and how would you go about collecting it?
+Include a paragraph that explains your interest in the data, and
+include a bulleted list with concrete steps for gathering the data. 1
+page, double spaced.
 
-**** BREAK
-
-**** assignment: web scraping
-Using either scrapy or selenium, scrape some data from a website that
-you couldn't scrape before.
-Bring that data to class. 
-
-** unit 2 chat bots - 1.5 weeks
-*** June 12, session 5: spaCy for processing text
+** unit 2 social media bots - 2.5 weeks
+*** June 16, session 5: spaCy
 **** share scraping assignments
 **** intro to Python for cleaning text
 - review replace() method and using Regex
 - practice cleaning own dataset
 **** the spaCy pipeline
-**** BREAK
 **** NER in spaCy
-**** practice NER in dataset
-**** homework: ACLU tech & privacy analysis write-up
-Choose a recent topic from this page; write up analysis of what is
-going on, and your opinion on the issue. How does the issue handle
-privacy rights and ethical uses of data?
-https://www.aclu.org/press-releases?issue=privacy-technology
-
-*** June 16, session 6: spacy continued, intro to transformers 
-**** share homeworks
 **** pattern matching in spaCy
 **** BREAK
-**** introduction to huggingface
-**** how to run inference
-**** individual practice: explore tasks
-**** homework: run a task on your own data
+**** practice NER in dataset
 
-*** June 19, session 7: transformers continued
-**** share homework
+*** June 19, session 6: transformers
+**** how to run inference
 **** how to fine-tune a model
-**** introductin to git and github
-**** individual practice: fine-tune a model with own data
 **** BREAK
+**** individual practice: fine-tune a model with own data
 **** in class: read and explore COMPAS algorithm
 - “Can You Make AI Fairer than a Judge? Play Our Courtroom Algorithm
   Game.” MIT Technology Review,
@@ -756,14 +844,6 @@ female words.
 Also uses spacy to create lists of male and female nouns and
 adjectives. 
 
-**** assignment: dataset proposal
-What is the dataset you'd like to create for your final project? Where
-would you get the data, and how would you transform it? You can
-consider tools from this class (like text generation, named entity
-recognition, pattern matching), or you can consider other
-possibilities for transforming your data. 1 page, double spaced.
-
-** unit 3 social media bots - 1.5 weeks
 *** June 23, session 8: twitter bots
 [[https://thepythoncode.com/article/make-a-twitter-bot-in-python][Twitter bot with Python]] tutorial
 
@@ -969,7 +1049,7 @@ Resources:
 User: trans_phobia_
 pass: supersecure
 
-** unit 4 project workshops & presentations - 1 week
+** unit 3 project workshops & presentations - 1 week
 *** (online) July 3, final projects
 - share progress
 - project workshops
@@ -1058,3 +1138,8 @@ Try out some of these strategies:
 - [[https://scrapeops.io/web-scraping-playbook/403-forbidden-error-web-scraping/][How To Solve 403 Forbidden Errors When Web Scraping]]
 - [[https://www.zenrows.com/blog/bypass-cloudflare-python][How to Bypass Cloudflare in Python]]
 - [[https://www.zenrows.com/blog/curl-bypass-cloudflare#set-real-http-headers][4 Methods to Bypass Cloudflare with cURL in 2025]]
+**** homework: ACLU tech & privacy analysis write-up
+Choose a recent topic from this page; write up analysis of what is
+going on, and your opinion on the issue. How does the issue handle
+privacy rights and ethical uses of data?
+https://www.aclu.org/press-releases?issue=privacy-technology

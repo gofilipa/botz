@@ -6,14 +6,17 @@ class GenderSpider(scrapy.Spider):
         "https://www.heritage.org/gender?f%5B0%5D=content_type%3Acommentary",
     ]
 
+    # Get the links to the articles, pass them to parse_article 
     def parse(self, response):
         article_page_links = response.css("div.result-card__info-wrapper a::attr('href')")
         yield from response.follow_all(article_page_links, self.parse_article)
 
+        # Go to the next page of results
         next_page = response.css('li.pager__item a::attr("href")').get()
         if next_page is not None:
             yield response.follow(next_page, self.parse)
 
+    # get the text from the individual articles
     def parse_article(self, response):
         yield {
             'title': response.css('h1.headline::text').get(),
