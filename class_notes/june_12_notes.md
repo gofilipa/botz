@@ -16,7 +16,6 @@ Where we are:
 
 So we will start with a review of web scraping methods, then we will
 move on to selenium.
-- Open ipython shell.
 - bs4 - good for scraping individual websites that are static
 - scrapy - good for crawling websites, multiple pages, that are
   static.
@@ -25,8 +24,6 @@ move on to selenium.
 - xhr - good for getting dynamic data, by intercepting network
   requests.
 - selenium - good for getting dynamic data by simulating a browser.
-
-Try to scrape doge.gov with all the above.
 
 ## intro to selenium
 
@@ -37,10 +34,8 @@ webpages, by creating a virtual (ghost-like) browser.
 ### how to install selenium
 - run one of the following in your command line
 
-#+begin_src
-  conda install selenium
-  pip install selenium
-#+end_src
+>  conda install selenium
+>  pip install selenium
 
 ### how to install the chromedriver
 - we must use a "chromedriver" for selenium -- creates a virtual
@@ -67,7 +62,7 @@ We will be scraping the doge.gov website. Notice that our usual
 scrapers (`bs4` and `scrapy`) don't work, because they only work on
 static sites. 
 
-#+begin_src python
+```python
   ### INTRODUCTION TO SELENIUM
 
   # notice that bs4 won't work
@@ -139,7 +134,7 @@ static sites.
   for i in cards:
       print(i.text)
 
-#+end_src
+```
 
 ## environmental scan research
 
