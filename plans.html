@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2025-06-05 Thu 10:05 -->
+<!-- 2025-06-12 Thu 12:31 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>&lrm;</title>
@@ -200,368 +200,55 @@
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents" role="doc-toc">
 <ul>
-<li><a href="#org5e08493">1. June 5, session 3: scrapy continued &amp; XHR</a>
-<ul>
-<li><a href="#org1bf1f08">1.1. share homework, discuss reading</a></li>
-<li><a href="#orgfd22851">1.2. practice time with scrapy</a></li>
-<li><a href="#org7d1116f">1.3. BREAK</a></li>
-<li><a href="#org346a450">1.4. finding undocumented APIs</a>
-<ul>
-<li><a href="#org5d6b5a8">1.4.1. XHR tutorial</a></li>
-</ul>
-</li>
-<li><a href="#org8412d07">1.5. homework: <i>Compost Engineers</i> chapters 3 &amp; 4</a></li>
-</ul>
-</li>
+<li><a href="#org73572c6">1. environmental scan research</a></li>
 </ul>
 </div>
 </div>
-<div id="outline-container-org5e08493" class="outline-2">
-<h2 id="org5e08493"><span class="section-number-2">1.</span> June 5, session 3: scrapy continued &amp; XHR</h2>
+<div id="outline-container-org73572c6" class="outline-2">
+<h2 id="org73572c6"><span class="section-number-2">1.</span> environmental scan research</h2>
 <div class="outline-text-2" id="text-1">
-</div>
-<div id="outline-container-org1bf1f08" class="outline-3">
-<h3 id="org1bf1f08"><span class="section-number-3">1.1.</span> share homework, discuss reading</h3>
-<div class="outline-text-3" id="text-1-1">
 <p>
-Joana Varon &amp; Lucia Egana, <i>The compost engineers and/sus saberes
-lentos:a manifest for regenerative technologies</i>, Coding Rights, 2024.
-</p>
-
-<p>
-Main ideas:
+Spend some time researching projects and apps that relate to your
+topic and/or your dataset. Create a list of 3-5 projects, considering
+the following:
 </p>
 <ul class="org-ul">
-<li>the term "artificial intelligence" carries with it an imaginary that
-is shaped by war, colonialism, and patriarchy.
+<li>projects should be some kind of data gathering and/or analysis of
+your chosen data or resource.
 <ul class="org-ul">
-<li>patriarchial ideas of domination.</li>
-<li>colonialism: the englightenment principles of man as a rational
-animal supported and justified expansion and conquest over
-"primitive" peoples and lands.
-<ul class="org-ul">
-<li>Civilized vs primitive, master vs servant, and other dichotomies.</li>
-<li>fantasies of discovery and appropriation.</li>
-<li>extend into today with the idea of the AI being something that
-can serve us, that we should dominate, but that can also
-dominate us.</li>
+<li>example: if you are scraping recipes, you might include a top
+recipe website, and/or an article that compares recipe websites.</li>
 </ul></li>
-</ul></li>
-<li>the tech pratices we have now are descendant from these imaginaries:
-of colonialism and patriarchy, they are influenced and materialized
-by them.
+<li>include at least two bots/scrapers. 
 <ul class="org-ul">
-<li>extrativist technology
-<ul class="org-ul">
-<li>what counts as "open" (for taking)</li>
-</ul></li>
-<li>socio-environmental harm</li>
-<li>the cloud as dematerialized</li>
-<li>labor as dematerialized</li>
-<li>universalizing the white male subject</li>
-<li>efficiency above all, what counts as the "cost"</li>
-<li>idea of progress over time, positivism vs intuitive knowlege</li>
-</ul></li>
-<li>How can we bring back AI technology and use it as tools, not
-solutions? (30)
-<ul class="org-ul">
-<li>"constitutive outside" - the outside of an idea that defines the
-idea.</li>
+<li>check both a search engine and github.com.</li>
+<li>try searching "[your topic] scraper python", or "[your topic] bot
+python"</li>
 </ul></li>
 </ul>
-</div>
-</div>
-
-<div id="outline-container-orgfd22851" class="outline-3">
-<h3 id="orgfd22851"><span class="section-number-3">1.2.</span> practice time with scrapy</h3>
-<div class="outline-text-3" id="text-1-2">
-<p>
-Walk through script for crawling articles based on "gender" in
-"commentary" filter.
-</p>
 
 <p>
-Note:
+Once you have your projects chosen, go through them one by one and
+answer the following questions:
 </p>
 <ul class="org-ul">
-<li>how the start URL is formatted</li>
-<li>how the two functions are doing different things</li>
-<li>how they are calling each other from within the function</li>
-</ul>
-
-<div class="org-src-container">
-<pre class="src src-python">import scrapy
-
-class GenderSpider(scrapy.Spider):
-    name = "gender"
-    start_urls = [
-        "https://www.heritage.org/gender?f%5B0%5D=content_type%3Acommentary",
-    ]
-
-    def parse(self, response):
-        article_page_links = response.css("div.result-card__info-wrapper a::attr('href')")
-        yield from response.follow_all(article_page_links, self.parse_article)
-
-        next_page = response.css('li.pager__item a::attr("href")').get()
-        if next_page is not None:
-            yield response.follow(next_page, self.parse)
-
-    def parse_article(self, response):
-        yield {
-            'title': response.css('h1.headline::text').get(),
-            'takeaways':response.css('div.key-takeaways__takeaway p::text').getall(),
-            'text': response.css('div.article__body-copy div p::text').getall()
-        }
-
-</pre>
-</div>
-</div>
-</div>
-
-<div id="outline-container-org7d1116f" class="outline-3">
-<h3 id="org7d1116f"><span class="section-number-3">1.3.</span> BREAK</h3>
-</div>
-<div id="outline-container-org346a450" class="outline-3">
-<h3 id="org346a450"><span class="section-number-3">1.4.</span> finding undocumented APIs</h3>
-<div class="outline-text-3" id="text-1-4">
-<p>
-Yin, Leon. Finding Undocumented APIs. 24 Feb. 2023,
-<a href="https://inspectelement.org/apis.html#tutorial">https://inspectelement.org/apis.html#tutorial</a>.
-</p>
-
-<p>
-What is an API? A way for you to get data from a source.
-</p>
+<li>what the project does accomplish? what appears to be its strengths?</li>
+<li>what does the project not do, what is outside the scope of the
+project? Try to identify a gap that may be filled by futher work on
+the topic/dataset.</li>
+<li>if the project uses python:
 <ul class="org-ul">
-<li>An application that holds and distributes the data you want.</li>
-<li>A language for interacting with that particular application</li>
+<li>where is it getting its data from?</li>
+<li>what python libraries is it using? (check "import" statements at
+the top of the python files).</li>
+</ul></li>
 </ul>
-
-<p>
-Documented vs undocumented APIs
-</p>
-<ul class="org-ul">
-<li>documented APIs: the MET API, for example.</li>
-<li>undocumented: no documentation. They operate under the hood,
-grabbing data to populate websites.</li>
-</ul>
-
-<p>
-Undocumented APIs do not engage with the web page, the HTML. They
-engage with the network, with the request being made over the network.
-</p>
-<ul class="org-ul">
-<li>they are the middle man, fulfilling requests from the code (usually
-javascript) to get data for the page.</li>
-</ul>
-</div>
-
-<div id="outline-container-org5d6b5a8" class="outline-4">
-<h4 id="org5d6b5a8"><span class="section-number-4">1.4.1.</span> XHR tutorial</h4>
-<div class="outline-text-4" id="text-1-4-1">
-<p>
-We'll see how Amazon.com autocomplete search suggestions work.
-</p>
-
-<p>
-We will scrape Amazon search results by reverse-engineering how
-requests are made, and use it to collect structured data at scale.
-</p>
-</div>
-
-<ol class="org-ol">
-<li><a id="org5753771"></a>1. First open the developer console.<br />
-<div class="outline-text-5" id="text-1-4-1-1">
-<p>
-See how on Chrome or Firefox here.
-</p>
-
-<p>
-One way to get to the dev tools it to right-click and “Inspect” an
-element on the page.
-</p>
-</div>
-</li>
-
-<li><a id="org9c6b9db"></a>2. Click the “Network” tab.<br />
-<div class="outline-text-5" id="text-1-4-1-2">
-<p>
-This section of the dev tools is used to monitor network requests.
-</p>
-
-<p>
-Everything on a page is retrieved from some outside source, likely a
-server. This includes things like images embedded on the page,
-JavaScript code running in the background, and all the bits of
-“content” that populate the page before us.
-</p>
-
-<p>
-Using the Network tab, we can find out how this information is
-requested from a server, and intercept the response before it is
-rendered on the page.
-</p>
-</div>
-</li>
-
-<li><a id="org03a5238"></a>3. Filter requests by fetch/XHR<br />
-<div class="outline-text-5" id="text-1-4-1-3">
-<p>
-This will reveal only API calls made to servers. This includes
-internal servers that are hosted by the website we’re inspecting, as
-well as external servers. The latter often includes third-party
-trackers used in adtech, and verification services to authenticate
-user behavior.
-</p>
-
-<p>
-You might see quite a few network requests that were loaded onto the
-page. Look at "Domain" to narrow down where requests were sent, and
-whether the names are telling of the purpose of the request. In this
-example, notice that a request was sent to the "Domain"
-completion.amazon.com.
-</p>
-
-<p>
-Look at the request's "Response" attributes.
-</p>
-</div>
-</li>
-
-<li><a id="orgbdb3dd3"></a>4. Copy as cURL<br />
-<div class="outline-text-5" id="text-1-4-1-4">
-<p>
-If you find an HTTP request that returns a response with useful
-information you can start to reverse-engineer it. To do that, we can
-isolate it by right-clicking the HTTP request and selecting “copy as
-cURL”. (cURL stands for client URL, and is a tool used to transfer
-data across networks.)
-</p>
-
-<p>
-You can paste this directly in your command line. Or, you can convert
-it to python to run as a script. 
-</p>
-</div>
-</li>
-
-<li><a id="org01d9175"></a>5. Curl to requests<br />
-<div class="outline-text-5" id="text-1-4-1-5">
-<p>
-We can use a site like curlconverter.com to convert the cURL we copied
-into a reusable API call. In this example, we use the default
-conversion to a Python requests script. You can do the same for any
-language and framework.
-</p>
-
-<p>
-Here is what the converted cURL looks like after being converted to a
-Python request:
-</p>
-</div>
-</li>
-
-<li><a id="org793b537"></a>6. copy and paste one by one into a notebook, run it<br /></li>
-
-<li><a id="orge267c8b"></a>7. port to a function<br />
-<div class="outline-text-5" id="text-1-4-1-7">
-<div class="org-src-container">
-<pre class="src src-python">import pandas as pd
-import time
-
-def search_suggestions(keyword):
-    """
-    Get autocompleted search suggestions for a `keyword` search on Amazon.com.
-    """
-    headers = {
-        'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:100.0) Gecko/20100101 Firefox/100.0',
-        'Accept': 'application/json, text/javascript, */*; q=0.01',
-        'Accept-Language': 'en-US,en;q=0.5',
-    }
-
-    params = {
-        'prefix': keyword,
-        'suggestion-type': [
-            'WIDGET',
-            'KEYWORD',
-        ],
-        'alias': 'aps',
-        'plain-mid': '1',
-    }
-
-    response = requests.get('https://completion.amazon.com/api/2017/suggestions',
-                            params=params, headers=headers)
-    return response.json()
-</pre>
-</div>
-
-<div class="org-src-container">
-<pre class="src src-python">search_suggestions('maga')
-</pre>
-</div>
-</div>
-</li>
-
-<li><a id="orgd9bbb97"></a>8. Iterate through different searches, save to DF<br />
-<div class="outline-text-5" id="text-1-4-1-8">
-<p>
-Here we can set new input parameters in keyword, and make the an API
-call using each keyword. Try changing some of the code (eg. the
-keywords) and rerunning it to check your understanding.
-</p>
-
-<div class="org-src-container">
-<pre class="src src-python">  # Here are our inputs (what searches we'll get autocompleted)
-keywords = [
-    'a', 'b', 'cookie', 'sock', 'zelda', '12'
-]
-
-# Here we'll go through each input, get the suggestions, and then add the `suggestions` to a list.
-data = []
-for keyword in keywords:
-    suggestions = search_suggestions(keyword)
-    suggestions['search_word'] = keyword # keep track of the seed keyword
-    time.sleep(1) # best practice to put some time between API calls.
-    data.extend(suggestions['suggestions'])
-</pre>
-</div>
-
-<p>
-See the results by looping through the "value" key
-</p>
-
-<div class="org-src-container">
-<pre class="src src-python">for i in data:
-    print(i['value'])
-</pre>
-</div>
-</div>
-</li>
-</ol>
-</div>
-</div>
-
-<div id="outline-container-org8412d07" class="outline-3">
-<h3 id="org8412d07"><span class="section-number-3">1.5.</span> homework: <i>Compost Engineers</i> chapters 3 &amp; 4</h3>
-<div class="outline-text-3" id="text-1-5">
-<p>
-Joana Varon and Lucía Egaña Rojas. Chapters 3 &amp; 4 from <i>Compost
-Engineers and Sus Saberes Lentos: A Manifest for Regenerative
-Technologies</i>. Coding Rights, 2024,
-<a href="https://codingrights.org/docs/compost_engineers.pdf">https://codingrights.org/docs/compost_engineers.pdf</a>.
-</p>
-
-<p>
-Prompt: From the authors' proposals, what do you find useful or
-surprising, and what do you have doubts about?
-</p>
-</div>
 </div>
 </div>
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: fcalado</p>
-<p class="date">Created: 2025-06-05 Thu 10:05</p>
+<p class="date">Created: 2025-06-12 Thu 12:31</p>
 <p class="validation"><a href="https://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
 </body>
