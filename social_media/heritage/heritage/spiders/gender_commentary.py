@@ -18,8 +18,21 @@ class GenderSpider(scrapy.Spider):
 
     # get the text from the individual articles
     def parse_article(self, response):
+        # Try all possible selectors for author names
+        authors_raw = (
+            response.css('a.author-card__name span::text').getall() +
+            response.css('p.author-card__name span::text').getall() +
+            response.css('a.author-card__multi-name span::text').getall() +
+            response.css('span.author-card__name span::text').getall()
+        )
+        # Flatten and clean the list
+        authors = [a.strip() for a in authors_raw if isinstance(a, str) and a.strip()]
+
         yield {
             'title': response.css('h1.headline::text').get(),
+            'author': authors,
+            'date': response.css('div.article-general-info::text').get(),
+            'url': response.url,
             'takeaways':response.css('div.key-takeaways__takeaway p::text').getall(),
             'text': response.css('div.article__body-copy div p::text').getall()
         }

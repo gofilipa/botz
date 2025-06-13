@@ -809,11 +809,16 @@ include a bulleted list with concrete steps for gathering the data.
 *** June 16, session 5: spaCy
 **** share dataset homework
 **** intro to Python for cleaning text
-- review replace() method and using Regex
-- practice cleaning own dataset
+- open up heritage spider dataset, share with everyone as well.
+- show them how to open it up in pandas, and do some basic cleaning
+- first, decide what needs to be cleaned
+- ask co-pilot to flatten list of strings into a single string, to
+  remove examples that are just author pages.
+- review replace() method and using Regex??
+
 **** the spaCy pipeline
 **** NER in spaCy
-**** pattern matching in spaCy
+**** pattern matching in spaCy???
 **** BREAK
 **** practice NER in dataset
 
