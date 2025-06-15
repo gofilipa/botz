@@ -809,18 +809,55 @@ include a bulleted list with concrete steps for gathering the data.
 *** June 16, session 5: spaCy
 **** share dataset homework
 **** intro to Python for cleaning text
-- open up heritage spider dataset, share with everyone as well.
-- show them how to open it up in pandas, and do some basic cleaning
-- first, decide what needs to be cleaned
-- ask co-pilot to flatten list of strings into a single string, to
-  remove examples that are just author pages.
-- review replace() method and using Regex??
-
-**** the spaCy pipeline
+- display and explain modification of the script to grab all the text
+  and author information.
+- cleaning
+  - download and load up heritage spider dataset, `gender_articles` into
+    pandas. 
+  - show them how to do some basic exploring/viewing: info(), .columns,
+    .sample, df['column']
+  - ask them to look at the dataset and decide if there's anything we
+    can change, remove
+    - want to remove rows that don't have authors, because these are
+      author pages and not articles
+    - replace(), dropna()
 **** NER in spaCy
-**** pattern matching in spaCy???
+- spacy for analysis:
+  - spacy docs object
+    - iterate to print out: sents, noun_chunks, tokens
+    - saving to a list, but still span type of object
+  - spacy pipeline
+    - NER
+    - iterating through ents
+    - visualzing ents
+  - saving sentences, person names to txt file
 **** BREAK
-**** practice NER in dataset
+**** ideate on data work
+Think about the data you are interested in, and answer the following
+questions:
+
+1. Who usually collects or controls the data, and for what purpose?
+   (Think: organizations, corporations, governments, platforms, ad
+   networks…)
+
+2. Are there any problems that you see in how this data is collected
+   or used? You might think about more serious issues like extracting
+   data for surveillance or profit, environmental harms, or something
+   more subtle like the difficulty of sorting through data,
+   finding/getting what you want. Some examples might include:
+   inaccessibility, surveillance, discrimination, lack of consent,
+   monetization without benefit to users, inundation of information.
+
+3. How could you work with this data in a way that resists these
+   trends? (Could you collect your own data for a different purpose?
+   Visualize hidden patterns? Make bias transparent? Create something
+   that raises awareness or supports others?)
+
+4. What kind of tool or project could you build to explore this idea?
+   (Think: a bot, a scraper, an artwork, a visualization, a
+   counter-database…)
+
+
 
 *** June 19, session 6: transformers
 **** how to run inference
