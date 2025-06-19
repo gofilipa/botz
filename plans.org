@@ -804,7 +804,6 @@ would you get the data, and how would you go about collecting it?
 Include a paragraph that explains your interest in the data, and
 include a bulleted list with concrete steps for gathering the data.
 
-
 ** unit 2 social media bots - 2.5 weeks
 *** June 16, session 5: spaCy
 **** share dataset homework
@@ -857,79 +856,26 @@ questions:
    (Think: a bot, a scraper, an artwork, a visualization, a
    counter-database…)
 
-
-
 *** June 19, session 6: transformers
-**** how to run inference
-**** how to fine-tune a model
-**** BREAK
-**** individual practice: fine-tune a model with own data
-**** in class: read and explore COMPAS algorithm
-- “Can You Make AI Fairer than a Judge? Play Our Courtroom Algorithm
-  Game.” MIT Technology Review,
-  https://www.technologyreview.com/2019/10/17/75285/ai-fairer-than-judge-criminal-risk-assessment-algorithm/.
-- recommended:
-  - Groves, Lara, et al. “Auditing Work: Exploring the New York City
-    Algorithmic Bias Audit Regime.” The 2024 ACM Conference on
-    Fairness, Accountability, and Transparency, ACM, 2024, pp.
-    1107–20. DOI.org (Crossref),
-    https://doi.org/10.1145/3630106.3658959.
+**** introduction to huggingface, transformers
+Create a virtual env with pip, using python 3.11
 
-**** in class: end user algorithmic audit
-- goals:
-  - opportunity to discuss what makes something toxic
-  - opportunity to examine how models treat toxicity
+Follow instructions on this page:
+https://huggingface.co/docs/huggingface_hub/installation
 
-***** indie-label
+#+begin_src
+python -m venv .env
 
-[[https://github.com/StanfordHCI/indie-label][IndieLabel]]
-
-Installations:
-- use conda to create an env with python 3.8
-- then use pip to install the packages
-- if coming up against cython and/or surprise package errors, see:
-  - [[https://stackoverflow.com/questions/77490435/attributeerror-cython-sources][AttributeError: cython_sources [duplicate]]]
-  - [[https://stackoverflow.com/questions/65679417/getting-errors-while-installing-surprise-package][Getting errors while installing Surprise package]]
-  - [[https://stackoverflow.com/questions/79374322/importerror-cannot-import-name-cached-download-from-huggingface-hub][ImportError: cannot import name 'cached_download' from 'huggingface_hub']]
-
-#+begin_src console
-
-  # create a constraint to avoid cython
-  echo "cython<3" > /tmp/constraint.txt 
-  PIP_CONSTRAINT=/tmp/constraint.txt pip install -r requirements.txt
-
-  # install scikit-surprise separately with conda
-  conda install -c conda-forge scikit-surprise
-
-  # error when running server.py
-  pip install huggingface-hub==0.25.2
+source .env/bin/activate
 
 #+end_src
 
-Audit instructions:
-- open a blank document for note-taking
-- complete the questionnaire to get your model in the "okay" range. 
-  - as you complete the questionnaire, make notes of deciding factors
-    that made you choose if something is toxic or not toxic.
-- explore the "auditing" tab, make notes on your findings. 
+**** how to fine-tune a model
 
-Report:
-- provide 2 examples of choices that were difficult or that made you
-  second guess yourself
-- why was the choice difficult?
+On google colab
 
-**** source code walkthrough: bias evaluation projects
-- goals: learn to read complicated python code/projects; adapt
-  pre-existing code to your own purposes/experimentation. 
-***** biases-llm-reference-letters
-https://github.com/uclanlp/biases-llm-reference-letters/tree/main?tab=readme-ov-file
-
-Useful functions to count how many times certain words appear, male or
-female words.
-
-Also uses spacy to create lists of male and female nouns and
-adjectives. 
-
+**** BREAK
+**** individual practice: fine-tune a model with own data
 *** June 23, session 8: twitter bots
 [[https://thepythoncode.com/article/make-a-twitter-bot-in-python][Twitter bot with Python]] tutorial
 
@@ -1143,6 +1089,72 @@ pass: supersecure
 *** (online) July 7, final project presentations
 - presentations
 ** bank
+**** in class: read and explore COMPAS algorithm
+- “Can You Make AI Fairer than a Judge? Play Our Courtroom Algorithm
+  Game.” MIT Technology Review,
+  https://www.technologyreview.com/2019/10/17/75285/ai-fairer-than-judge-criminal-risk-assessment-algorithm/.
+- recommended:
+  - Groves, Lara, et al. “Auditing Work: Exploring the New York City
+    Algorithmic Bias Audit Regime.” The 2024 ACM Conference on
+    Fairness, Accountability, and Transparency, ACM, 2024, pp.
+    1107–20. DOI.org (Crossref),
+    https://doi.org/10.1145/3630106.3658959.
+
+**** in class: end user algorithmic audit
+- goals:
+  - opportunity to discuss what makes something toxic
+  - opportunity to examine how models treat toxicity
+
+***** indie-label
+
+[[https://github.com/StanfordHCI/indie-label][IndieLabel]]
+
+Installations:
+- use conda to create an env with python 3.8
+- then use pip to install the packages
+- if coming up against cython and/or surprise package errors, see:
+  - [[https://stackoverflow.com/questions/77490435/attributeerror-cython-sources][AttributeError: cython_sources [duplicate]]]
+  - [[https://stackoverflow.com/questions/65679417/getting-errors-while-installing-surprise-package][Getting errors while installing Surprise package]]
+  - [[https://stackoverflow.com/questions/79374322/importerror-cannot-import-name-cached-download-from-huggingface-hub][ImportError: cannot import name 'cached_download' from 'huggingface_hub']]
+
+#+begin_src console
+
+  # create a constraint to avoid cython
+  echo "cython<3" > /tmp/constraint.txt 
+  PIP_CONSTRAINT=/tmp/constraint.txt pip install -r requirements.txt
+
+  # install scikit-surprise separately with conda
+  conda install -c conda-forge scikit-surprise
+
+  # error when running server.py
+  pip install huggingface-hub==0.25.2
+
+#+end_src
+
+Audit instructions:
+- open a blank document for note-taking
+- complete the questionnaire to get your model in the "okay" range. 
+  - as you complete the questionnaire, make notes of deciding factors
+    that made you choose if something is toxic or not toxic.
+- explore the "auditing" tab, make notes on your findings. 
+
+Report:
+- provide 2 examples of choices that were difficult or that made you
+  second guess yourself
+- why was the choice difficult?
+
+**** source code walkthrough: bias evaluation projects
+- goals: learn to read complicated python code/projects; adapt
+  pre-existing code to your own purposes/experimentation. 
+***** biases-llm-reference-letters
+https://github.com/uclanlp/biases-llm-reference-letters/tree/main?tab=readme-ov-file
+
+Useful functions to count how many times certain words appear, male or
+female words.
+
+Also uses spacy to create lists of male and female nouns and
+adjectives. 
+
 **** scraping XHR
 [[https://scrapism.lav.io/scraping-xhr/][Tutorial by Sam Lavigne]] on scraping Bing and Customs Border
 Protection.

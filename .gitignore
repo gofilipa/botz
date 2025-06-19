@@ -1,5 +1,7 @@
 social_media/bias_audit
 social_media/intro_spacy
 social_media/met_women_bot
+social_media/transformers/models
+social_media/transformers/.venv
 web_scraping/chromedriver-mac-arm64
 web_scraping/Financial-Data-Scraper
