@@ -25,10 +25,12 @@ Then, open the repository from VS code: https://code.visualstudio.com/docs/sourc
 
 ## create project via command line
 
-Back on VS Code, ppen your command line app (terminal). We need to do
-this to make sure we have the right versions of our python packages
-for when we deploy them later on github's servers.
+Back on VS Code, open your command line. We are going to create a
+virtual environment for this project. We need to do this to make sure
+we have the right versions of our python packages for when we deploy
+them later on github's servers.
 
+```console
 # creates a virtual environment
 python -m venv .venv
 
