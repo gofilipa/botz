@@ -172,6 +172,7 @@ def tweet_a_woman(tweepy_client):
  
 # calling the function with the auth data as parameter
 tweet_a_woman(client)
+```
 
 ## deploy the bot on github
 
