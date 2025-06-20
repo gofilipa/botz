@@ -1,0 +1,39 @@
+# how to make a twitter bot
+
+## configurate twitter account & api access
+
+1. Bot's Twitter Account (create a new Twitter account for the bot) -
+   NOTE: It's important that you Label this account as 'Automated' or
+   specify in its Bio that it's a bot: https://x.com/i/flow/signup 
+2. Twitter Dev Account to access the Twitter API:
+   https://developer.twitter.com/en/apply-for-access
+3. A Project in your Twitter Dev Portal:
+   https://developer.twitter.com/en/portal/projects-and-apps 
+4. A new App under that Twitter Dev Project.
+5. Get API key and secret, Access token key and secret. You may have
+   to generate new pairs if you don't have them yet
+
+![generate_keys.jpeg]
+
+
+## create project on command line
+
+Open your command line app (terminal) to create a new directory for
+the project, then to initialize a Python virtual environment.
+
+```console
+mkdir bot_name
+cd bot_name
+
+# creates a virtual environment
+python -m venv .venv
+
+# activate the environment
+source .venv/bin/activate
+
+# on windows
+.venv\Scripts\activate
+
+# to deactivate it (when you're done, but not necessary!)
+source deactivate
+
