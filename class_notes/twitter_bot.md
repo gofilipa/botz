@@ -176,7 +176,15 @@ tweet_a_woman(client)
 
 ## deploy the bot on github
 
-Then, create a new directory, `.github/workflows`. Inside, create a
+Go to your github repository settings (on
+`github.com/your_username/your_repo_name`). Once you're there, add
+your keys and secrets (all four of them) to your repository under:
+
+```
+Settings -> Secrets -> GitHub Actions -> New repository secret
+```
+
+Then, back on VS Code create a new directory, `.github/workflows`. Inside, create a
 folder called `actions.yml`. In that file, paste the following code:
 
 ```
