@@ -1,6 +1,14 @@
 # how to make a twitter bot
 
-## configurate twitter account & api access
+## set up github and vs code
+
+First, make an empty repository on github. Make sure that you do not
+include a readme or gitignore. It has to be totally empty.
+
+Then, open the repository from VS code: https://code.visualstudio.com/docs/sourcecontrol/github#_opening-a-repository
+
+
+## configure twitter account & api access
 
 1. Bot's Twitter Account (create a new Twitter account for the bot) -
    NOTE: It's important that you Label this account as 'Automated' or
@@ -13,18 +21,13 @@
 5. Get API key and secret, Access token key and secret. You may have
    to generate new pairs if you don't have them yet
 
-![image showing where to generate keys on twitter dev portal](generate_keys.jpeg)
+![image showing where to generate keys on twitter dev portal](generate_keys.jpg)
 
-## create project on command line
+## create project via command line
 
-Open your command line app (terminal) to create a new directory for
-the project, then to initialize a Python virtual environment. We need
-to do this to make sure we have the right versions of our python
-packages for when we deploy them later on github's servers.
-
-```console
-mkdir bot_name
-cd bot_name
+Back on VS Code, ppen your command line app (terminal). We need to do
+this to make sure we have the right versions of our python packages
+for when we deploy them later on github's servers.
 
 # creates a virtual environment
 python -m venv .venv
@@ -50,13 +53,15 @@ virtual environment and twitter environment variables, so that github
 later won't publish them.
 
 ```console
-
 pip install tweepy, requests, python-dotenv
+pip freeze
 ```
 
-Then, open your folder in VS Code. Create an `.env` file, copy and
-paste your keys into the below format (do not include the less/greater
-than symbols):
+There should now be a file called `requirements.txt` that has the
+verions of all your packages.
+
+Then, create an `.env` file, copy and paste your keys into the below
+format (do not include the less/greater than symbols):
 
 ```
 # Consumer Keys > API Key and Secret
@@ -68,10 +73,8 @@ ACCESS_TOKEN=<your-access-token>
 ACCESS_TOKEN_SECRET=<your-access-token-secret>
 ```
 
-Now, create anotother file, called `.gitignore`.
-
-
-In the `.gitignore` file, type then save:
+Now, create anotother file, called `.gitignore`. In the `.gitignore`
+file, type then save:
 
 ```
 __pycache__
@@ -167,3 +170,50 @@ def tweet_a_woman(tweepy_client):
  
 # calling the function with the auth data as parameter
 tweet_a_woman(client)
+
+## deploy the bot on github
+
+Then, create a new directory, `.github/workflows`. Inside, create a
+folder called `actions.yml`. In that file, paste the following code:
+
+```
+on:
+  schedule:
+#    - cron: '0 * * * *' # at top of every hour
+    - cron: '0 0 * * *' # At 00:00 every day
+  
+  push: 
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+
+      - name: checkout repo content
+        uses: actions/checkout@v2 # checkout the repository content
+
+      - name: setup python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10' # install the python version needed
+
+      - name: install python packages
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: run scrupt 
+        run: python tweet.py
+        env: 
+            API_KEY: ${{ secrets.API_KEY }}
+            API_SECRET: ${{ secrets.API_SECRET }}
+            ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
+            ACCESS_TOKEN_SECRET: ${{ secrets.ACCESS_TOKEN_SECRET }}
+  ```
+
+## deployyyyyyyyyy
+
+Add, commit, and push your changes. Then, go to twitter and see your
+bot go!
