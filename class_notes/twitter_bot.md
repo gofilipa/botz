@@ -228,3 +228,15 @@ jobs:
 
 Add, commit, and push your changes. Then, go to twitter and see your
 bot go!
+
+## tutorials and helpful links
+
+- [How to Build a Twitter (X) Bot in Python
+  tutorial](https://thepythoncode.com/article/make-a-twitter-bot-in-python)
+- [Adding secrets to github
+  actions](https://www.python-engineer.com/posts/run-python-github-actions/)
+- [Automating a Twitter bot with GitHub Actions part 1 of
+  3](https://medium.com/@gabrielbelolima/a-step-by-step-tutorial-part-1-3-71a7a8444b0cAutomating)
+- [Automating a twitter bot with Github Actions
+  repository](https://github.com/gabrielbelolima/ttBot)
+- 
