@@ -882,10 +882,13 @@ On google colab
 **** configuring environments
 
 #+begin_src console
+python -m venv .venv
+pip install tweepy, requests, python-dotenv
+#+end_src
 
+#+begin_src console
 mkdir met_women
 cd met_women
-
 #+end_src
 
 #+begin_src console
@@ -912,11 +915,6 @@ nano .gitignore
 __pycache__
 .env*
 .venv
-#+end_src
-
-#+begin_src console
-python -m venv .venv
-pip install tweepy, requests, python-dotenv
 #+end_src
 
 **** tweet.py
@@ -1062,6 +1060,7 @@ Resources:
 - [[https://www.geeksforgeeks.org/make-an-instagram-bot-with-python/][Make an Instagram Bot With Python]], Geeks for Geeks
 
 **** make a plan for actions steps by next class
+
 *** (online) June 26, session 9: group projects
 **** share progress, next steps
 **** BREAK

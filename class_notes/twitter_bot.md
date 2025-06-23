@@ -2,11 +2,11 @@
 
 ## set up github and vs code
 
-First, make an empty repository on github. Make sure that you do not
-include a readme or gitignore. It has to be totally empty.
+First, download `git`, instructions here: https://git-scm.com/downloads. (On a mac, the easiest way is through `homebrew`). 
 
-Then, open the repository from VS code: https://code.visualstudio.com/docs/sourcecontrol/github#_opening-a-repository
+Second, open VS Code and sign into github on the Accounts icon.
 
+Third, [initialize a repository](https://code.visualstudio.com/docs/sourcecontrol/intro-to-git#_initialize-a-repository-in-a-local-folder) on VS Code.
 
 ## configure twitter account & api access
 
