@@ -19,11 +19,26 @@ Third, [initialize a repository](https://code.visualstudio.com/docs/sourcecontro
    https://developer.twitter.com/en/portal/projects-and-apps 
 4. A new App under that Twitter Dev Project.
 5. Get API key and secret, Access token key and secret. You may have
-   to generate new pairs if you don't have them yet
+   to generate new pairs if you don't have them yet. Save these to a new file called `.env` (see below).
 
 ![image showing where to generate keys on twitter dev portal](generate_keys.jpg)
 
-## create project via command line
+To save your keys:
+
+Create `.env` file, copy and paste your keys into the below
+format (do not include the less/greater than symbols):
+
+```
+# Consumer Keys > API Key and Secret
+API_KEY=<your-API-key>
+API_SECRET=<your-API-secret>
+
+# Authentication Tokens > Access Token and Secret
+ACCESS_TOKEN=<your-access-token>
+ACCESS_TOKEN_SECRET=<your-access-token-secret>
+```
+
+## create a virtual environment
 
 Back on VS Code, open your command line. We are going to create a
 virtual environment for this project. We need to do this to make sure
@@ -56,24 +71,11 @@ later won't publish them.
 
 ```console
 pip install tweepy, requests, python-dotenv
-pip freeze
+pip freeze > requirements.txt
 ```
 
 There should now be a file called `requirements.txt` that has the
 verions of all your packages.
-
-Then, create an `.env` file, copy and paste your keys into the below
-format (do not include the less/greater than symbols):
-
-```
-# Consumer Keys > API Key and Secret
-API_KEY=<your-API-key>
-API_SECRET=<your-API-secret>
-
-# Authentication Tokens > Access Token and Secret
-ACCESS_TOKEN=<your-access-token>
-ACCESS_TOKEN_SECRET=<your-access-token-secret>
-```
 
 Now, create anotother file, called `.gitignore`. In the `.gitignore`
 file, type then save:
